@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.TeacherLogin">
+    <left>
+        <VBox prefHeight="330.0" prefWidth="140.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="110.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/HCMUS.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" top="5.0" />
+                    </VBox.margin>
+                </ImageView>
+                <Button fx:id="student" mnemonicParsing="false" onAction="#ChangeStudent" onMouseEntered="#MouseEnter" onMouseExited="#MouseExit" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: white;" text="Student">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font></Button>
+                <Button disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #16479f;" text="Teacher" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font></Button>
+                <Button fx:id="exit" mnemonicParsing="false" onAction="#Exit" onMouseEntered="#MouseEnter" onMouseExited="#MouseExit" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: white;" text="Exit">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="100.0" layoutY="175.0" text="Username: ">
+                    <font>
+                        <Font size="15.0" />
+                    </font></Label>
+                <TextField fx:id="username" layoutX="200.0" layoutY="165.0" prefHeight="30.0" prefWidth="150.0" promptText="username" style="-fx-border-radius: 0;" />
+                <Button layoutX="195.0" layoutY="325.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="76.0" style="-fx-border-radius: 90; -fx-background-color: #16479f;" text="Login" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Button>
+                <Label layoutX="100.0" layoutY="240.0" text="Password">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <PasswordField fx:id="password" layoutX="200.0" layoutY="230.0" prefHeight="30.0" prefWidth="150.0" promptText="password" />
+                <ImageView fitHeight="140.0" fitWidth="330.0" layoutX="65.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@../img/Logo.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="133.0" layoutY="105.0" text="TEACHER LOGIN" textFill="#16479f">
+                    <font>
+                        <Font name="Calibri Bold" size="30.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
