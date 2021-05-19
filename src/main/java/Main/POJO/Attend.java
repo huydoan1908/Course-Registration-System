@@ -10,8 +10,7 @@ import java.util.Objects;
 public class Attend {
     private int attendId;
     private String studentId;
-    private String subjId;
-    private Integer semId;
+    private Integer courseId;
 
     @Id
     @Column(name = "attend_id", nullable = false)
@@ -34,23 +33,13 @@ public class Attend {
     }
 
     @Basic
-    @Column(name = "subj_id", nullable = true, length = 5)
-    public String getSubjId() {
-        return subjId;
+    @Column(name = "course_id", nullable = true)
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setSubjId(String subjId) {
-        this.subjId = subjId;
-    }
-
-    @Basic
-    @Column(name = "sem_id", nullable = true)
-    public Integer getSemId() {
-        return semId;
-    }
-
-    public void setSemId(Integer semId) {
-        this.semId = semId;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     @Override
@@ -58,11 +47,11 @@ public class Attend {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Attend attend = (Attend) o;
-        return attendId == attend.attendId && Objects.equals(studentId, attend.studentId) && Objects.equals(subjId, attend.subjId) && Objects.equals(semId, attend.semId);
+        return attendId == attend.attendId && Objects.equals(studentId, attend.studentId) && Objects.equals(courseId, attend.courseId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(attendId, studentId, subjId, semId);
+        return Objects.hash(attendId, studentId, courseId);
     }
 }
