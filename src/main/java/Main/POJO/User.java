@@ -1,5 +1,7 @@
 package Main.POJO;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ public class User {
     private String username;
     private String password;
     private String name;
-    private Byte gender;
+    private boolean gender;
     private Date birthday;
 
     @Id
@@ -68,12 +70,13 @@ public class User {
     }
 
     @Basic
-    @Column(name = "gender", nullable = true)
-    public Byte getGender() {
+    @Column(name = "gender", nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    public boolean getGender() {
         return gender;
     }
 
-    public void setGender(Byte gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 

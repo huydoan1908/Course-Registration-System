@@ -6,7 +6,8 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306/manage student</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-
+    <property name="connection.username">root</property>
+    <property name="connection.password">1234</property>
 
     <mapping class="Main.POJO.Clazz"/>
     <mapping resource="Main/Hibernate/Clazz.hbm.xml"/>

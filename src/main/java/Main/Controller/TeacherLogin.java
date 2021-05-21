@@ -40,8 +40,7 @@ public class TeacherLogin {
     }
 
     public void ChangeStudent(ActionEvent e) throws IOException {
-        App.setCSS("style");
-        App.setRoot("StudentLogin");
+        App.changeScene("StudentLogin","");
     }
     public void Exit(ActionEvent e)
     {

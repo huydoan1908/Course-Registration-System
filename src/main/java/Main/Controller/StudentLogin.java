@@ -1,6 +1,8 @@
 package Main.Controller;
 
 import Main.App;
+import Main.DAO.UserDAO;
+import Main.POJO.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class StudentLogin {
     @FXML
@@ -17,7 +20,9 @@ public class StudentLogin {
     @FXML
     Button teacher;
     @FXML Button exit;
+    private List<User> userList;
     public void Submit(ActionEvent e) throws IOException {
+        userList = UserDAO.getAllStudent();
 
     }
     public void MouseEnter(MouseEvent e){
@@ -42,8 +47,7 @@ public class StudentLogin {
         }
     }
     public void ChangeTeacher(ActionEvent e) throws IOException {
-        App.setCSS("style");
-        App.setRoot("TeacherLogin");
+        App.changeScene("TeacherLogin","");
     }
     public void Exit(ActionEvent e)
     {
