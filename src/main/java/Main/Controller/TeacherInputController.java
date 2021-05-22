@@ -52,14 +52,7 @@ public class TeacherInputController {
         else
             male.setSelected(true);
     }
-    private void clear()
-    {
-        idText.setText(null);
-        nameText.setText(null);
-        usernameText.setText(null);
-        passwordText.setText(null);
-        dateText.setValue(null);
-    }
+
     @FXML
     private void submit(ActionEvent e)
     {
@@ -90,7 +83,6 @@ public class TeacherInputController {
         }
         if(!update) {
             UserDAO.addUser(user);
-            clear();
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.close();
         }

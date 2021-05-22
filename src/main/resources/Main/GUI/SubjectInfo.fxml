@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.SubjectInfoController">
+    <top>
+        <AnchorPane prefHeight="100.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="88.0" fitWidth="99.0" layoutX="17.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/HCMUS.png" />
+                    </image>
+                </ImageView>
+                <TextField layoutX="178.0" layoutY="35.0" prefHeight="30.0" prefWidth="250.0" />
+                <Button layoutX="423.0" layoutY="35.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: #16479f;" text="Search" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button layoutX="613.0" layoutY="2.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Đăng xuất">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Label fx:id="usernameText" alignment="CENTER_RIGHT" layoutX="463.0" layoutY="5.0" prefHeight="20.0" prefWidth="150.0" text="Username">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font></Label>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <content>
+                <TableView fx:id="subjectTable" prefHeight="440.0" prefWidth="540.0" stylesheets="@table.css">
+                    <columns>
+                        <TableColumn fx:id="idCol" prefWidth="150.0" text="Mã môn" />
+                        <TableColumn fx:id="nameCol" prefWidth="300.0" text="Tên môn học" />
+                        <TableColumn fx:id="creditCol" minWidth="0.0" prefWidth="90.0" text="Tín chỉ" />
+                    </columns>
+                </TableView>
+            </content>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets bottom="8.0" left="8.0" top="10.0" />
+            </BorderPane.margin>
+        </ScrollPane>
+    </center>
+    <right>
+        <VBox alignment="TOP_CENTER" prefHeight="440.0" prefWidth="140.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Thêm" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font></Button>
+                <Button mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Refresh" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Xóa" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Chỉnh sửa" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Trở lại" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+            <BorderPane.margin>
+                <Insets top="10.0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets top="20.0" />
+            </padding></VBox>
+    </right>
+</BorderPane>
