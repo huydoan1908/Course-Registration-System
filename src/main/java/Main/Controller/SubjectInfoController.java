@@ -3,17 +3,21 @@ package Main.Controller;
 import Main.App;
 import Main.DAO.SubjectDAO;
 import Main.POJO.Subject;
+import Main.POJO.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,18 +27,18 @@ import java.util.ResourceBundle;
 
 public class SubjectInfoController implements Initializable {
     @FXML
-    TableView<Subject> subjectTable;
+    private TableView<Subject> subjectTable;
     @FXML
-    TableColumn<Subject, String> idCol;
+    private TableColumn<Subject, String> idCol;
     @FXML
-    TableColumn<Subject, String> nameCol;
+    private TableColumn<Subject, String> nameCol;
     @FXML
-    TableColumn<Subject, Integer> creditCol;
+    private TableColumn<Subject, Integer> creditCol;
 
     @FXML
-    Label usernameText;
+    private Label usernameText;
 
-
+    private User cur;
     ObservableList<Subject> subjectList= FXCollections.observableArrayList();
     List<Subject> src;
     @Override
@@ -42,9 +46,10 @@ public class SubjectInfoController implements Initializable {
         refresh();
     }
 
-    public void setUsernameText(String text)
+    public void setUsernameText(User user)
     {
-        usernameText.setText(text);
+        usernameText.setText(user.getName()+", ");
+        cur=user;
     }
 
     @FXML
@@ -90,5 +95,23 @@ public class SubjectInfoController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void logout() throws IOException {
+        App.changeScene("Login","");
+    }
+
+    @FXML
+    private void back(ActionEvent e) throws IOException {
+        FXMLLoader loader = App.loadFXML("TeacherFunc");
+        loader.load();
+        TeacherFuncController controller = loader.getController();
+        controller.setUsername(cur);
+        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(loader.getRoot()));
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
     }
 }

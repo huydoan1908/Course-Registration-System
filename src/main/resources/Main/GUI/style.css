@@ -1,9 +1,8 @@
 
-#username {
+.text-field {
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: black;
-}
-#password{
+}  .password-field{
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: black;
 }
@@ -12,4 +11,5 @@
 }
 .button{
     -fx-background-radius: 0px;
+    -fx-cursor: hand;
 }

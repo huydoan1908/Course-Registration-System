@@ -11,9 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -25,22 +28,23 @@ import java.util.ResourceBundle;
 
 public class TeacherInfoController implements Initializable {
     @FXML
-    TableView<User> teacherTable;
+    private TableView<User> teacherTable;
     @FXML
-    TableColumn<User, String> idCol;
+    private TableColumn<User, String> idCol;
     @FXML
-    TableColumn<User, String> nameCol;
+    private TableColumn<User, String> nameCol;
     @FXML
-    TableColumn<User, Date> dateCol;
+    private TableColumn<User, Date> dateCol;
     @FXML
-    TableColumn<User, Boolean> genderCol;
+    private TableColumn<User, Boolean> genderCol;
     @FXML
-    TableColumn<User, String> usernameCol;
+    private TableColumn<User, String> usernameCol;
     @FXML
-    TableColumn<User, String> passwordCol;
+    private TableColumn<User, String> passwordCol;
     @FXML
-    Label usernameText;
+    private Label usernameText;
 
+    private User cur;
 
     ObservableList<User> teacherList= FXCollections.observableArrayList();
     List<User> src;
@@ -49,9 +53,10 @@ public class TeacherInfoController implements Initializable {
         refresh();
     }
 
-    public void setUsernameText(String text)
+    public void setUsernameText(User user)
     {
-        usernameText.setText(text);
+        usernameText.setText(user.getName()+", ");
+        cur=user;
     }
 
     @FXML
@@ -111,51 +116,24 @@ public class TeacherInfoController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    private void logout() throws IOException {
+        App.changeScene("Login","");
+    }
+
+    @FXML
+    private void back(ActionEvent e) throws IOException {
+        FXMLLoader loader = App.loadFXML("TeacherFunc");
+        loader.load();
+        TeacherFuncController controller = loader.getController();
+        controller.setUsername(cur);
+        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(loader.getRoot()));
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+    }
 }
 
-class BooleanCell extends TableCell<User, Boolean> {
-    private CheckBox checkBox;
-    public BooleanCell() {
-        checkBox = new CheckBox();
-        checkBox.setDisable(true);
-        checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(isEditing())
-                    commitEdit(newValue == null ? false : newValue);
-            }
-        });
-        this.setGraphic(checkBox);
-        this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        this.setEditable(true);
-    }
-    @Override
-    public void startEdit() {
-        super.startEdit();
-        if (isEmpty()) {
-            return;
-        }
-        checkBox.setDisable(false);
-        checkBox.requestFocus();
-    }
-    @Override
-    public void cancelEdit() {
-        super.cancelEdit();
-        checkBox.setDisable(true);
-    }
-    public void commitEdit(Boolean value) {
-        super.commitEdit(value);
-        checkBox.setDisable(true);
-    }
-    @Override
-    public void updateItem(Boolean item, boolean empty) {
-        super.updateItem(item, empty);
-        if(empty)
-        {
-            setGraphic(null);
-            setText(null);
-        }
-        if (!isEmpty()) {
-            checkBox.setSelected(item);
-        }
-    }
-}
+

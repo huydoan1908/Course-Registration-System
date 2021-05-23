@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.TeacherFuncController">
+    <top>
+        <AnchorPane style="-fx-background-color: #16479f;">
+            <children>
+                <Label fx:id="username" alignment="CENTER_RIGHT" layoutX="510.0" layoutY="5.0" prefHeight="30.0" prefWidth="170.0" text="Username" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="103.0" fitWidth="105.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/Logo.png" />
+                    </image>
+                </ImageView>
+                <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="553.0" layoutY="33.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" style="-fx-background-color: none;" text="Thông tin chi tiết" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="553.0" layoutY="60.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="137.0" style="-fx-background-color: none;" text="Đăng xuất" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <GridPane alignment="CENTER" prefHeight="353.0" prefWidth="704.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#teacher" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Giáo vụ" textFill="#16479f" wrapText="true">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <ImageView fitHeight="94.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/044-teacher.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="Calibri Bold" size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                    <children>
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#subject" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Môn học" textFill="#16479f">
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/032-pencil.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="Calibri Bold" size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                    <children>
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="42.0" layoutY="23.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Lớp học" textFill="#16479f">
+                            <font>
+                                <Font name="Calibri Bold" size="14.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/031-learning.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                    <children>
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Học kỳ" textFill="#16479f">
+                            <font>
+                                <Font name="Calibri Bold" size="14.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/002-exam.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Kỳ đăng ký học phần" textFill="#16479f">
+                            <font>
+                                <Font name="Calibri Bold" size="14.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/042-elearning.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <children>
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="42.0" layoutY="23.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Học phần" textFill="#16479f">
+                            <font>
+                                <Font name="Calibri Bold" size="14.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../img/018-dictionary.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>
