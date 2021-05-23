@@ -80,4 +80,24 @@ public class SubjectDAO {
             session.close();
         }
     }
+
+    public static List<Subject> getSubjectById(String id)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Subject> subject = null;
+        try
+        {
+            final String hql = "from Subject where subjectId like '%" + id+ "%'";
+            Query query = session.createQuery(hql);
+            subject=query.list();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return subject;
+    }
 }

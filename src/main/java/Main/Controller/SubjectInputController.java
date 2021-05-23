@@ -9,6 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class SubjectInputController {
     @FXML
     private TextField idText;
@@ -49,9 +51,17 @@ public class SubjectInputController {
             subject.setCredits(Integer.parseInt(credit));
         }
         if(!update) {
-            SubjectDAO.addSubject(subject);
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            stage.close();
+            if(findSubject(subject))
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Mã đã tồn tại!");
+                alert.showAndWait();
+            }else {
+                SubjectDAO.addSubject(subject);
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                stage.close();
+            }
         }
         else
         {
@@ -59,5 +69,13 @@ public class SubjectInputController {
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.close();
         }
+    }
+
+    private boolean findSubject(Subject subject) {
+        List<Subject> list = SubjectDAO.getAllSubject();
+        for (Subject i : list)
+            if (i.getSubjectId().compareTo(subject.getSubjectId())==0)
+                return true;
+        return false;
     }
 }

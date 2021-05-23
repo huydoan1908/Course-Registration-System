@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -37,10 +38,12 @@ public class SubjectInfoController implements Initializable {
 
     @FXML
     private Label usernameText;
-
+    @FXML
+    TextField searchText;
     private User cur;
     ObservableList<Subject> subjectList= FXCollections.observableArrayList();
     List<Subject> src;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         refresh();
@@ -113,5 +116,22 @@ public class SubjectInfoController implements Initializable {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+    }
+
+    @FXML
+    private void search(ActionEvent e)
+    {
+        String res = searchText.getText();
+        if(res.isEmpty()){ }
+        else{
+            subjectList.clear();
+            src = SubjectDAO.getSubjectById(res);
+            for(Subject i : src)
+                subjectList.add(i);
+            idCol.setCellValueFactory(new PropertyValueFactory<Subject,String>("subjectId"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<Subject,String>("subjectName"));
+            creditCol.setCellValueFactory(new PropertyValueFactory<Subject,Integer>("credits"));
+            subjectTable.setItems(subjectList);
+        }
     }
 }

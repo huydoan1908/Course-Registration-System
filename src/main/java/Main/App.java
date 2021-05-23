@@ -19,7 +19,7 @@ public class App extends Application {
         stage = primaryStage;
         scene = new Scene(loadFXML("Login").load());
         stage.setScene(scene);
-        Image icon = new Image("Main/img/Logo.png");
+        Image icon = new Image("Main/img/HCMUS.png");
         stage.getIcons().add(icon);
         stage.setTitle("PORTAL");
         stage.show();
