@@ -43,7 +43,8 @@ public class TeacherInfoController implements Initializable {
     private TableColumn<User, String> passwordCol;
     @FXML
     private Label usernameText;
-
+    @FXML
+    private TextField searchText;
     private User cur;
 
     ObservableList<User> teacherList= FXCollections.observableArrayList();
@@ -133,6 +134,41 @@ public class TeacherInfoController implements Initializable {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+    }
+
+    @FXML
+    private void search(ActionEvent e)
+    {
+        String res = searchText.getText();
+        if(res.isEmpty()){ }
+        else{
+            teacherList.clear();
+            src = UserDAO.getTeacherById(res);
+            src.forEach(i -> teacherList.add(i));
+            idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+            dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
+            usernameCol.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
+            passwordCol.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+            Callback<TableColumn<User, Boolean>, TableCell<User,Boolean>> booleanCellFactory = new Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>>() {
+                @Override
+                public TableCell<User, Boolean> call(TableColumn<User, Boolean> userBooleanTableColumn) {
+                    return new BooleanCell();
+                }
+            };
+            genderCol.setCellValueFactory(new PropertyValueFactory<User, Boolean>("gender"));
+            genderCol.setCellFactory(booleanCellFactory);
+            teacherTable.setItems(teacherList);
+        }
+    }
+
+    @FXML
+    private void reset(ActionEvent e)
+    {
+        User user = teacherTable.getSelectionModel().getSelectedItem();
+        user.setPassword(user.getUsername());
+        UserDAO.updateUser(user);
+        refresh();
     }
 }
 

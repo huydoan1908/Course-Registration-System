@@ -3,9 +3,6 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -18,8 +15,8 @@
                         <Image url="@../img/HCMUS.png" />
                     </image>
                 </ImageView>
-                <TextField layoutX="275.0" layoutY="35.0" prefHeight="30.0" prefWidth="250.0" />
-                <Button layoutX="520.0" layoutY="35.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: #16479f;" text="Search" textFill="WHITE">
+                <TextField fx:id="searchText" layoutX="275.0" layoutY="35.0" prefHeight="30.0" prefWidth="250.0" />
+                <Button layoutX="520.0" layoutY="35.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: #16479f;" text="Search" textFill="WHITE">
                     <font>
                         <Font name="Calibri Bold" size="14.0" />
                     </font>
@@ -80,7 +77,7 @@
                         <Font name="Calibri Bold" size="14.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Đặt lại MK" textFill="WHITE">
+                <Button mnemonicParsing="false" onAction="#reset" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Đặt lại MK" textFill="WHITE">
                     <font>
                         <Font name="Calibri Bold" size="14.0" />
                     </font>

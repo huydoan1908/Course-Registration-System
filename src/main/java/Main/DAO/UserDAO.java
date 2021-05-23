@@ -120,4 +120,24 @@ public class UserDAO {
             session.close();
         }
     }
+
+    public static List<User> getTeacherById(String id)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<User> teacher = null;
+        try
+        {
+            final String hql = "from User where roleId = 'TCH' and id like '%" + id+ "%'";
+            Query query = session.createQuery(hql);
+            teacher=query.list();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return teacher;
+    }
 }

@@ -3,7 +3,6 @@ package Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
@@ -20,7 +19,7 @@ public class App extends Application {
         stage = primaryStage;
         scene = new Scene(loadFXML("Login").load());
         stage.setScene(scene);
-        Image icon = new Image("Main/img/HCMUS.png");
+        Image icon = new Image("Main/img/Logo.png");
         stage.getIcons().add(icon);
         stage.setTitle("PORTAL");
         stage.show();

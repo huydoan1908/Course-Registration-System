@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class TeacherInputController {
     @FXML
@@ -82,9 +83,17 @@ public class TeacherInputController {
             }
         }
         if(!update) {
-            UserDAO.addUser(user);
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            stage.close();
+            if(findUser(user))
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Mã đã tồn tại!");
+                alert.showAndWait();
+            }else {
+                UserDAO.addUser(user);
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                stage.close();
+            }
         }
         else
         {
@@ -94,4 +103,11 @@ public class TeacherInputController {
         }
     }
 
+    private boolean findUser(User user) {
+        List<User> list = UserDAO.getAllUser();
+        for (User i : list)
+            if (i.getId().compareTo(user.getId())==0)
+                return true;
+        return false;
+    }
 }

@@ -18,18 +18,6 @@ import java.io.IOException;
 public class TeacherFuncController {
     @FXML
     Label username;
-    @FXML
-    Button info;
-    @FXML
-    Button logout;
-    @FXML
-    Button clazz;
-    @FXML
-    Button sem;
-    @FXML
-    Button register;
-    @FXML
-    Button course;
 
     private User cur;
     public void setUsername(User user)
