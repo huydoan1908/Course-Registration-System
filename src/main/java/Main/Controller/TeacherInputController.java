@@ -30,7 +30,7 @@ public class TeacherInputController {
     private RadioButton female;
 
     private User user;
-    private boolean update;
+    private boolean update = false;
 
     public void setUpdate(boolean u)
     {

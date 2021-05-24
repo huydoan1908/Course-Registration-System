@@ -40,7 +40,7 @@ public class LoginController {
             FXMLLoader loader = App.loadFXML("TeacherFunc");
             loader.load();
             TeacherFuncController controller = loader.getController();
-            controller.setUsername(user);
+            controller.setUsername(user,null);
             Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(loader.getRoot()));
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
@@ -98,7 +99,7 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <children>
-                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Học kỳ" textFill="#16479f">
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#semester" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Học kỳ" textFill="#16479f">
                             <font>
                                 <Font name="Calibri Bold" size="14.0" />
                             </font>

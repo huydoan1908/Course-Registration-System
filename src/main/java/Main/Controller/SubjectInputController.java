@@ -20,7 +20,7 @@ public class SubjectInputController {
     private TextField creditText;
 
     private Subject subject;
-    private boolean update;
+    private boolean update = false;
 
     public void setUpdate(boolean u)
     {
