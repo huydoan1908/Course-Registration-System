@@ -23,7 +23,8 @@ public class TeacherFuncController {
     private Semester curSem;
     public void setUsername(User user, Semester sem)
     {
-        username.setText(user.getName());
+        if(user != null)
+            username.setText(user.getName());
         cur=user;
         if(sem != null)
             curSem=sem;
@@ -64,7 +65,18 @@ public class TeacherFuncController {
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
     }
-
+    @FXML
+    private void classInfo(ActionEvent e) throws IOException {
+        FXMLLoader loader = App.loadFXML("ClassInfo");
+        loader.load();
+        ClassInfoController controller = loader.getController();
+        controller.setUsernameText(cur);
+        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(loader.getRoot()));
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+    }
     @FXML
     private void logout() throws IOException {
         App.changeScene("Login","");

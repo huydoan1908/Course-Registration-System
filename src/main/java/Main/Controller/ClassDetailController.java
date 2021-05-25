@@ -1,10 +1,12 @@
 package Main.Controller;
 
 import Main.App;
+import Main.DAO.ClassDAO;
+import Main.DAO.StudentDAO;
 import Main.DAO.UserDAO;
+import Main.POJO.ClassInfo;
+import Main.POJO.Clazz;
 import Main.POJO.User;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,9 +28,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TeacherInfoController implements Initializable {
+public class ClassDetailController implements Initializable {
     @FXML
-    private TableView<User> teacherTable;
+    private TableView<User> studentTable;
     @FXML
     private TableColumn<User, String> idCol;
     @FXML
@@ -45,33 +47,19 @@ public class TeacherInfoController implements Initializable {
     private Label usernameText;
     @FXML
     private TextField searchText;
+    @FXML
+    private Label infoText;
     private User cur;
 
-    ObservableList<User> teacherList= FXCollections.observableArrayList();
-    List<User> src;
+    private ObservableList<User> studentList= FXCollections.observableArrayList();
+    private List<User> src = null;
+    private Clazz curClass;
+    private List<ClassInfo> infoList = ClassDAO.getAllInfoClass();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        refresh();
-    }
-
-    public void setUsernameText(User user)
-    {
-        if(user != null)
-            usernameText.setText(user.getName()+", ");
-        cur=user;
-    }
-
-    @FXML
-    private void refresh()
-    {
-        teacherList.clear();
-        src = UserDAO.getAllTeacher();
-        for(User i : src)
-            teacherList.add(i);
         idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
-        //genderCol.setCellValueFactory(new PropertyValueFactory<User,Byte>("gender"));
         usernameCol.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
         passwordCol.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
 
@@ -83,12 +71,52 @@ public class TeacherInfoController implements Initializable {
         };
         genderCol.setCellValueFactory(new PropertyValueFactory<User, Boolean>("gender"));
         genderCol.setCellFactory(booleanCellFactory);
-        teacherTable.setItems(teacherList);
+        studentTable.setItems(studentList);
+    }
+
+    public void setUsernameText(User user, Clazz clazz)
+    {
+        if(user!= null)
+            usernameText.setText(user.getName()+", ");
+        cur=user;
+        curClass=clazz;
+        infoText.setText("Thông tin lớp "+clazz.getClassId());
+        refresh();
+    }
+
+    @FXML
+    private void refresh()
+    {
+        studentList.clear();
+        if(StudentDAO.getAllStudentInCLass(curClass.getClassId()) != null)
+            src = StudentDAO.getAllStudentInCLass(curClass.getClassId());
+        for(User i : src)
+            studentList.add(i);
+        idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
+        usernameCol.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
+        passwordCol.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
+
+        Callback<TableColumn<User, Boolean>, TableCell<User,Boolean>> booleanCellFactory = new Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>>() {
+            @Override
+            public TableCell<User, Boolean> call(TableColumn<User, Boolean> userBooleanTableColumn) {
+                return new BooleanCell();
+            }
+        };
+        genderCol.setCellValueFactory(new PropertyValueFactory<User, Boolean>("gender"));
+        genderCol.setCellFactory(booleanCellFactory);
+        studentTable.setItems(studentList);
     }
 
     @FXML
     private void add(ActionEvent e) throws IOException {
-        Scene scene = new Scene(App.loadFXML("TeacherInput").load());
+        User user = studentTable.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = App.loadFXML("StudentInput");
+        loader.load();
+        StudentInputController controller = loader.getController();
+        controller.setUpdate(false,curClass);
+        Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
@@ -97,21 +125,34 @@ public class TeacherInfoController implements Initializable {
     @FXML
     private void delete(ActionEvent e)
     {
-        User user = teacherTable.getSelectionModel().getSelectedItem();
+        User user = studentTable.getSelectionModel().getSelectedItem();
         if(user == null)
             return;
+
+        ClassInfo info = new ClassInfo();
+        for(ClassInfo i : infoList)
+            if(i.getClassId().compareTo(curClass.getClassId())==0 && i.getStudentId().compareTo(user.getId())==0)
+                info=i;
+
+        curClass.setTotal(curClass.getTotal()-1);
+        if(user.getGender())
+            curClass.setFemale(curClass.getFemale()-1);
+        else
+            curClass.setMale(curClass.getMale()-1);
+
+        ClassDAO.updateClass(curClass);
+        ClassDAO.deleteStudentInClass(info);
         UserDAO.deleteUser(user);
         refresh();
-
     }
 
     @FXML
     private void update(ActionEvent e) throws IOException {
-        User user = teacherTable.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = App.loadFXML("TeacherInput");
+        User user = studentTable.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = App.loadFXML("StudentInput");
         loader.load();
-        TeacherInputController controller = loader.getController();
-        controller.setUpdate(true);
+        StudentInputController controller = loader.getController();
+        controller.setUpdate(true,curClass);
         controller.setTextField(user);
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
@@ -126,10 +167,10 @@ public class TeacherInfoController implements Initializable {
 
     @FXML
     private void back(ActionEvent e) throws IOException {
-        FXMLLoader loader = App.loadFXML("TeacherFunc");
+        FXMLLoader loader = App.loadFXML("ClassInfo");
         loader.load();
-        TeacherFuncController controller = loader.getController();
-        controller.setUsername(cur,null);
+        ClassInfoController controller = loader.getController();
+        controller.setUsernameText(cur);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -143,9 +184,9 @@ public class TeacherInfoController implements Initializable {
         String res = searchText.getText();
         if(res.isEmpty()){ }
         else{
-            teacherList.clear();
-            src = UserDAO.getTeacherById(res);
-            src.forEach(i -> teacherList.add(i));
+            studentList.clear();
+            src = StudentDAO.getAllStudentInCLassById(curClass.getClassId(),res);
+            src.forEach(i -> studentList.add(i));
             idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
             nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
             dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
@@ -159,18 +200,16 @@ public class TeacherInfoController implements Initializable {
             };
             genderCol.setCellValueFactory(new PropertyValueFactory<User, Boolean>("gender"));
             genderCol.setCellFactory(booleanCellFactory);
-            teacherTable.setItems(teacherList);
+            studentTable.setItems(studentList);
         }
     }
 
     @FXML
     private void reset(ActionEvent e)
     {
-        User user = teacherTable.getSelectionModel().getSelectedItem();
+        User user = studentTable.getSelectionModel().getSelectedItem();
         user.setPassword(user.getUsername());
         UserDAO.updateUser(user);
         refresh();
     }
 }
-
-

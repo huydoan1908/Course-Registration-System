@@ -51,7 +51,8 @@ public class SubjectInfoController implements Initializable {
 
     public void setUsernameText(User user)
     {
-        usernameText.setText(user.getName()+", ");
+        if(user != null)
+            usernameText.setText(user.getName()+", ");
         cur=user;
     }
 

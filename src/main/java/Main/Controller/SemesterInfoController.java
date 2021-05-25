@@ -57,7 +57,8 @@ public class SemesterInfoController implements Initializable {
 
     public void setUsernameText(User user,Semester sem)
     {
-        usernameText.setText(user.getName()+", ");
+        if(user != null)
+            usernameText.setText(user.getName()+", ");
         cur=user;
         if(sem != null)
         {

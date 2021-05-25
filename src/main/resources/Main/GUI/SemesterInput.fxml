@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -16,7 +15,7 @@
                         <Image url="@../img/HCMUS.png" />
                     </image>
                 </ImageView>
-                <Label layoutX="113.0" layoutY="33.0" text="THÔNG TIN HỌC KỲ" textFill="#16479f">
+                <Label layoutX="125.0" layoutY="33.0" text="THÔNG TIN HỌC KỲ" textFill="#16479f">
                     <font>
                         <Font name="Calibri Bold" size="30.0" />
                     </font>

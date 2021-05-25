@@ -11,3 +11,8 @@
 .table-view .table-column {
     -fx-alignment: CENTER;
 }
+
+.button{
+    -fx-background-radius: 0px;
+    -fx-cursor: hand;
+}
