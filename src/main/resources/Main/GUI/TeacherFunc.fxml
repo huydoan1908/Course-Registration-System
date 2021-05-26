@@ -115,7 +115,7 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Kỳ đăng ký học phần" textFill="#16479f">
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="43.0" layoutY="23.0" mnemonicParsing="false" onAction="#courseRegister" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Kỳ đăng ký học phần" textFill="#16479f">
                             <font>
                                 <Font name="Calibri Bold" size="14.0" />
                             </font>

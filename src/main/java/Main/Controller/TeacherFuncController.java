@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -76,6 +77,26 @@ public class TeacherFuncController {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+    }
+    @FXML
+    private void courseRegister(ActionEvent e) throws IOException {
+        if(curSem == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Hãy chọn học kỳ hiện tại trước!");
+            alert.showAndWait();
+        }else {
+            FXMLLoader loader = App.loadFXML("CourseRegister");
+            loader.load();
+            CourseRegisterController controller = loader.getController();
+            controller.setUsernameText(cur, curSem);
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.getRoot()));
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+        }
     }
     @FXML
     private void logout() throws IOException {
