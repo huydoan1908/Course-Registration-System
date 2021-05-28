@@ -98,6 +98,27 @@ public class TeacherFuncController {
             stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
         }
     }
+
+    @FXML
+    private void course(ActionEvent e) throws IOException {
+        if(curSem == null)
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Hãy chọn học kỳ hiện tại trước!");
+            alert.showAndWait();
+        }else {
+            FXMLLoader loader = App.loadFXML("CourseInfo");
+            loader.load();
+            CourseInfoController controller = loader.getController();
+            controller.setUsernameText(cur, curSem);
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.getRoot()));
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+        }
+    }
     @FXML
     private void logout() throws IOException {
         App.changeScene("Login","");

@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -66,8 +67,7 @@ public class TeacherInfoController implements Initializable {
     {
         teacherList.clear();
         src = UserDAO.getAllTeacher();
-        for(User i : src)
-            teacherList.add(i);
+        teacherList.addAll(src);
         idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
@@ -89,9 +89,14 @@ public class TeacherInfoController implements Initializable {
     @FXML
     private void add(ActionEvent e) throws IOException {
         Scene scene = new Scene(App.loadFXML("TeacherInput").load());
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -113,10 +118,15 @@ public class TeacherInfoController implements Initializable {
         TeacherInputController controller = loader.getController();
         controller.setUpdate(true);
         controller.setTextField(user);
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -145,7 +155,7 @@ public class TeacherInfoController implements Initializable {
         else{
             teacherList.clear();
             src = UserDAO.getTeacherById(res);
-            src.forEach(i -> teacherList.add(i));
+            teacherList.addAll(src);
             idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
             nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
             dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));

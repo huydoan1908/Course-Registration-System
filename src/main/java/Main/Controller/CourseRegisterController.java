@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -75,8 +76,7 @@ public class CourseRegisterController implements Initializable {
     {
         registerList.clear();
         src = CourseRegisterDAO.getAllRegister();
-        for(CourseRegisterInfo i : src)
-            registerList.add(i);
+        registerList.addAll(src);
         nameCol.setCellValueFactory(new PropertyValueFactory<CourseRegisterInfo,String>("semName"));
         yearCol.setCellValueFactory(new PropertyValueFactory<CourseRegisterInfo,Integer>("semYear"));
         startCol.setCellValueFactory(new PropertyValueFactory<CourseRegisterInfo,Date>("start"));
@@ -91,10 +91,15 @@ public class CourseRegisterController implements Initializable {
         loader.load();
         RegisterInputController controller = loader.getController();
         controller.setUpdate(false,curSem);
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -120,10 +125,15 @@ public class CourseRegisterController implements Initializable {
         RegisterInputController controller = loader.getController();
         controller.setUpdate(true,curSem);
         controller.setTextField(info);
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -152,8 +162,7 @@ public class CourseRegisterController implements Initializable {
         else{
             registerList.clear();
             src = CourseRegisterDAO.getAllRegisterById(res);
-            for(CourseRegisterInfo i : src)
-                registerList.add(i);
+            registerList.addAll(src);
             nameCol.setCellValueFactory(new PropertyValueFactory<CourseRegisterInfo,String>("semName"));
             yearCol.setCellValueFactory(new PropertyValueFactory<CourseRegisterInfo,Integer>("semYear"));
             startCol.setCellValueFactory(new PropertyValueFactory<CourseRegisterInfo,Date>("startDate"));

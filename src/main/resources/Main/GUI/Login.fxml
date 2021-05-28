@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.LoginController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.LoginController">
     <top>
         <AnchorPane prefHeight="137.0" prefWidth="400.0" BorderPane.alignment="CENTER">
             <children>
@@ -42,7 +43,7 @@
                     <GridPane.margin>
                         <Insets right="20.0" />
                     </GridPane.margin></Label>
-                <TextField fx:id="usernameText" prefHeight="30.0" prefWidth="150.0" promptText="Username" style="-fx-border-radius: 0;" GridPane.columnIndex="1">
+                <TextField fx:id="usernameText" prefHeight="30.0" prefWidth="150.0" promptText="Username" style="-fx-border-radius: 0; -fx-background-color: white;" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets left="20.0" right="60.0" />
                     </GridPane.margin></TextField>
@@ -61,7 +62,7 @@
                         <Insets right="20.0" />
                     </GridPane.margin>
                 </Label>
-                <PasswordField fx:id="passwordText" prefHeight="30.0" prefWidth="150.0" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <PasswordField fx:id="passwordText" prefHeight="30.0" prefWidth="150.0" promptText="Password" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets left="20.0" right="60.0" />
                     </GridPane.margin></PasswordField>

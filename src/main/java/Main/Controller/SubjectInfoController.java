@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -61,8 +62,7 @@ public class SubjectInfoController implements Initializable {
     {
         subjectList.clear();
         src = SubjectDAO.getAllSubject();
-        for(Subject i : src)
-            subjectList.add(i);
+        subjectList.addAll(src);
         idCol.setCellValueFactory(new PropertyValueFactory<Subject,String>("subjectId"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Subject,String>("subjectName"));
         creditCol.setCellValueFactory(new PropertyValueFactory<Subject,Integer>("credits"));
@@ -72,9 +72,14 @@ public class SubjectInfoController implements Initializable {
     @FXML
     private void add(ActionEvent e) throws IOException {
         Scene scene = new Scene(App.loadFXML("SubjectInput").load());
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -95,10 +100,15 @@ public class SubjectInfoController implements Initializable {
         SubjectInputController controller = loader.getController();
         controller.setUpdate(true);
         controller.setTextField(subject);
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -127,8 +137,7 @@ public class SubjectInfoController implements Initializable {
         else{
             subjectList.clear();
             src = SubjectDAO.getSubjectById(res);
-            for(Subject i : src)
-                subjectList.add(i);
+            subjectList.addAll(src);
             idCol.setCellValueFactory(new PropertyValueFactory<Subject,String>("subjectId"));
             nameCol.setCellValueFactory(new PropertyValueFactory<Subject,String>("subjectName"));
             creditCol.setCellValueFactory(new PropertyValueFactory<Subject,Integer>("credits"));

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.CourseInputController">
+   <top>
+      <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="90.0" layoutX="6.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0">
+               <image>
+                  <Image url="@../img/HCMUS.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="116.0" layoutY="33.0" text="THÔNG TIN HỌC PHẦN" textFill="#16479f" AnchorPane.rightAnchor="8.0">
+               <font>
+                  <Font name="Calibri Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="145.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="255.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" text="Môn học:">
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#submit" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #16479f; -fx-background-radius: 0;" text="Xác nhận" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+            </Button>
+            <TextField fx:id="teacherText" prefHeight="25.0" prefWidth="192.0" promptText="Giáo viên lý thuyết" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-style: hidden hidden solid hidden;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" right="60.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label alignment="CENTER" text="Giáo viên lý thuyết:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" text="Phòng:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" text="Thứ:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" text="Ca:" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" text="Slot tối đa:" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="subjectText" prefWidth="192.0" promptText="Môn học" style="-fx-background-color: white;" stylesheets="@style.css" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" right="60.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <TextField fx:id="roomText" prefHeight="25.0" prefWidth="192.0" promptText="Phòng" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-style: hidden hidden solid hidden;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" right="60.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="dayText" prefHeight="25.0" prefWidth="192.0" promptText="Thứ" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-style: hidden hidden solid hidden;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="20.0" right="60.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="maxText" prefHeight="25.0" prefWidth="192.0" promptText="Slot tối đa" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-style: hidden hidden solid hidden;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="20.0" right="60.0" />
+               </GridPane.margin>
+            </TextField>
+            <ComboBox fx:id="sessionText" prefWidth="192.0" promptText="Ca" style="-fx-background-color: white;" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="20.0" right="60.0" />
+               </GridPane.margin>
+            </ComboBox>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

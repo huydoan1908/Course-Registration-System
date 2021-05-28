@@ -16,7 +16,7 @@
                         <Image url="@../img/HCMUS.png" />
                     </image>
                 </ImageView>
-                <TextField fx:id="searchText" layoutX="270.0" layoutY="25.0" prefHeight="30.0" prefWidth="250.0" />
+                <TextField fx:id="searchText" layoutX="270.0" layoutY="25.0" prefHeight="30.0" prefWidth="250.0" promptText="Tìm kiếm theo MSSV" />
                 <Button layoutX="515.0" layoutY="25.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: #16479f; -fx-background-radius: 3;" text="Search" textFill="WHITE">
                     <font>
                         <Font name="Calibri Bold" size="14.0" />
@@ -44,7 +44,7 @@
             <content>
                 <TableView fx:id="studentTable" prefHeight="514.0" prefWidth="683.0">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="120.0" text="ID" />
+                        <TableColumn fx:id="idCol" prefWidth="120.0" text="MSSV" />
                         <TableColumn fx:id="nameCol" prefWidth="150.0" text="Họ tên" />
                         <TableColumn fx:id="dateCol" minWidth="0.0" prefWidth="120.0" text="Ngày sinh" />
                         <TableColumn fx:id="genderCol" prefWidth="50.0" text="Nữ" />

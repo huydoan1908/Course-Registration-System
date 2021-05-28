@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -72,8 +73,7 @@ public class SemesterInfoController implements Initializable {
     {
         semesterList.clear();
         src = SemesterDAO.getAllSemester();
-        for(Semester i : src)
-            semesterList.add(i);
+        semesterList.addAll(src);
         nameCol.setCellValueFactory(new PropertyValueFactory<Semester,String>("semName"));
         yearCol.setCellValueFactory(new PropertyValueFactory<Semester,Integer>("semYear"));
         startCol.setCellValueFactory(new PropertyValueFactory<Semester,Date>("startDate"));
@@ -85,8 +85,13 @@ public class SemesterInfoController implements Initializable {
     private void add(ActionEvent e) throws IOException {
         Scene scene = new Scene(App.loadFXML("SemesterInput").load());
         Stage stage = new Stage();
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -107,10 +112,15 @@ public class SemesterInfoController implements Initializable {
         SemesterInputController controller = loader.getController();
         controller.setUpdate(true);
         controller.setTextField(Semester);
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -139,8 +149,7 @@ public class SemesterInfoController implements Initializable {
         else{
             semesterList.clear();
             src = SemesterDAO.getSemesterById(res);
-            for(Semester i : src)
-                semesterList.add(i);
+            semesterList.addAll(src);
             nameCol.setCellValueFactory(new PropertyValueFactory<Semester,String>("semName"));
             yearCol.setCellValueFactory(new PropertyValueFactory<Semester,Integer>("semYear"));
             startCol.setCellValueFactory(new PropertyValueFactory<Semester,Date>("startDate"));

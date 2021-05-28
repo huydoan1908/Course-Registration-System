@@ -2,13 +2,18 @@
 .text-field {
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: black;
-}  .password-field{
+}
+.password-field{
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: black;
 }
-*{
-    -fx-background-color: white;
+.combo-box{
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: black;
 }
+/**{*/
+/*    -fx-background-color: white;*/
+/*}*/
 .button{
     -fx-background-radius: 0px;
     -fx-cursor: hand;

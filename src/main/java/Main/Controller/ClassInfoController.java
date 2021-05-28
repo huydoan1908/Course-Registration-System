@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -63,8 +64,7 @@ public class ClassInfoController implements Initializable {
     {
         clazzList.clear();
         src = ClassDAO.getAllClass();
-        for(Clazz i : src)
-            clazzList.add(i);
+        clazzList.addAll(src);
         idCol.setCellValueFactory(new PropertyValueFactory<Clazz,String>("classId"));
         totalCol.setCellValueFactory(new PropertyValueFactory<Clazz,Integer>("total"));
         maleCol.setCellValueFactory(new PropertyValueFactory<Clazz,Integer>("male"));
@@ -75,9 +75,14 @@ public class ClassInfoController implements Initializable {
     @FXML
     private void add(ActionEvent e) throws IOException {
         Scene scene = new Scene(App.loadFXML("ClassInput").load());
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -116,8 +121,7 @@ public class ClassInfoController implements Initializable {
         else{
             clazzList.clear();
             src = ClassDAO.getClassById(res);
-            for(Clazz i : src)
-                clazzList.add(i);
+            clazzList.addAll(src);
             idCol.setCellValueFactory(new PropertyValueFactory<Clazz,String>("classId"));
             totalCol.setCellValueFactory(new PropertyValueFactory<Clazz,Integer>("total"));
             maleCol.setCellValueFactory(new PropertyValueFactory<Clazz,Integer>("male"));

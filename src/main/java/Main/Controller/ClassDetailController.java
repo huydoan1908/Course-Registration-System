@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -88,10 +89,8 @@ public class ClassDetailController implements Initializable {
     private void refresh()
     {
         studentList.clear();
-        if(StudentDAO.getAllStudentInCLass(curClass.getClassId()) != null)
-            src = StudentDAO.getAllStudentInCLass(curClass.getClassId());
-        for(User i : src)
-            studentList.add(i);
+        src = StudentDAO.getAllStudentInCLass(curClass.getClassId());
+        studentList.addAll(src);
         idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
@@ -116,10 +115,15 @@ public class ClassDetailController implements Initializable {
         loader.load();
         StudentInputController controller = loader.getController();
         controller.setUpdate(false,curClass);
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -154,10 +158,15 @@ public class ClassDetailController implements Initializable {
         StudentInputController controller = loader.getController();
         controller.setUpdate(true,curClass);
         controller.setTextField(user);
+        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.getRoot());
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.setResizable(false);
+        stage.initOwner(primary);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        refresh();
     }
 
     @FXML
@@ -186,7 +195,7 @@ public class ClassDetailController implements Initializable {
         else{
             studentList.clear();
             src = StudentDAO.getAllStudentInCLassById(curClass.getClassId(),res);
-            src.forEach(i -> studentList.add(i));
+            studentList.addAll(src);
             idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
             nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
             dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));

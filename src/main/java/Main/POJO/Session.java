@@ -55,4 +55,9 @@ public class Session {
     public int hashCode() {
         return Objects.hash(sessId, startTime, endTime);
     }
+
+    @Override
+    public String toString() {
+        return startTime.toString()+" - "+endTime.toString();
+    }
 }

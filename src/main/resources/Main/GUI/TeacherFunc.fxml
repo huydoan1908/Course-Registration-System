@@ -35,7 +35,7 @@
         </AnchorPane>
     </top>
     <center>
-        <GridPane alignment="CENTER" prefHeight="353.0" prefWidth="704.0" BorderPane.alignment="CENTER">
+        <GridPane alignment="CENTER" prefHeight="353.0" prefWidth="704.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -131,7 +131,7 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <children>
-                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="42.0" layoutY="23.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Học phần" textFill="#16479f">
+                        <Button contentDisplay="TOP" graphicTextGap="15.0" layoutX="42.0" layoutY="23.0" mnemonicParsing="false" onAction="#course" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Học phần" textFill="#16479f">
                             <font>
                                 <Font name="Calibri Bold" size="14.0" />
                             </font>

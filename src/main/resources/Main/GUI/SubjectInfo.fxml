@@ -16,13 +16,13 @@
                         <Image url="@../img/HCMUS.png" />
                     </image>
                 </ImageView>
-                <TextField fx:id="searchText" layoutX="178.0" layoutY="25.0" prefHeight="30.0" prefWidth="250.0" />
+                <TextField fx:id="searchText" layoutX="178.0" layoutY="25.0" prefHeight="30.0" prefWidth="250.0" promptText="Tìm kiếm theo mã môn học" />
                 <Button layoutX="423.0" layoutY="25.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="100.0" style="-fx-background-color: #16479f; -fx-background-radius: 3;" text="Search" textFill="WHITE">
                     <font>
                         <Font name="Calibri Bold" size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="logout" layoutX="613.0" layoutY="2.0" mnemonicParsing="false" style="-fx-background-color: none;" text="Đăng xuất">
+                <Button layoutX="613.0" layoutY="2.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: none;" text="Đăng xuất">
                     <font>
                         <Font name="Calibri Bold" size="14.0" />
                     </font>
