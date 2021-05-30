@@ -1,7 +1,10 @@
 package Main.Controller;
 
 import Main.App;
+import Main.DAO.CourseDAO;
 import Main.DAO.SubjectDAO;
+import Main.POJO.Course;
+import Main.POJO.Semester;
 import Main.POJO.Subject;
 import Main.POJO.User;
 import javafx.collections.FXCollections;
@@ -13,10 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -40,8 +40,9 @@ public class SubjectInfoController implements Initializable {
     @FXML
     private Label usernameText;
     @FXML
-    TextField searchText;
+    private TextField searchText;
     private User cur;
+    private Semester sem;
     ObservableList<Subject> subjectList= FXCollections.observableArrayList();
     List<Subject> src;
 
@@ -50,11 +51,12 @@ public class SubjectInfoController implements Initializable {
         refresh();
     }
 
-    public void setUsernameText(User user)
+    public void setUsernameText(User user,Semester sem)
     {
         if(user != null)
             usernameText.setText(user.getName()+", ");
         cur=user;
+        this.sem = sem;
     }
 
     @FXML
@@ -88,13 +90,26 @@ public class SubjectInfoController implements Initializable {
         Subject subject = subjectTable.getSelectionModel().getSelectedItem();
         if(subject == null)
             return;
-        SubjectDAO.deleteSubject(subject);
-        refresh();
+        List<Course> courses = CourseDAO.getAllBySubject(subject.getSubjectId());
+        if(courses.isEmpty())
+        {
+            SubjectDAO.deleteSubject(subject);
+            refresh();
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Tồn tại học phần thuộc môn học này!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void update(ActionEvent e) throws IOException {
         Subject subject = subjectTable.getSelectionModel().getSelectedItem();
+        if(subject == null)
+            return;
         FXMLLoader loader = App.loadFXML("SubjectInput");
         loader.load();
         SubjectInputController controller = loader.getController();
@@ -121,7 +136,7 @@ public class SubjectInfoController implements Initializable {
         FXMLLoader loader = App.loadFXML("TeacherFunc");
         loader.load();
         TeacherFuncController controller = loader.getController();
-        controller.setUsername(cur,null);
+        controller.setUsername(cur,sem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

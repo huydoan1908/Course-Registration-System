@@ -2,7 +2,10 @@ package Main.Controller;
 
 import Main.App;
 import Main.DAO.ClassDAO;
+import Main.DAO.StudentDAO;
+import Main.DAO.UserDAO;
 import Main.POJO.Clazz;
+import Main.POJO.Semester;
 import Main.POJO.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,10 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -42,8 +42,9 @@ public class ClassInfoController implements Initializable {
     @FXML
     private Label usernameText;
     @FXML
-    TextField searchText;
+    private TextField searchText;
     private User cur;
+    private Semester sem;
     ObservableList<Clazz> clazzList= FXCollections.observableArrayList();
     List<Clazz> src;
 
@@ -52,11 +53,12 @@ public class ClassInfoController implements Initializable {
         refresh();
     }
 
-    public void setUsernameText(User user)
+    public void setUsernameText(User user,Semester sem)
     {
         if(user != null)
             usernameText.setText(user.getName()+", ");
         cur=user;
+        this.sem = sem;
     }
 
     @FXML
@@ -91,8 +93,17 @@ public class ClassInfoController implements Initializable {
         Clazz clazz = clazzTable.getSelectionModel().getSelectedItem();
         if(clazz == null)
             return;
-        ClassDAO.deleteClass(clazz);
-        refresh();
+        List<User> users = StudentDAO.getAllStudentInCLass(clazz.getClassId());
+        if(users.isEmpty()){
+            ClassDAO.deleteClass(clazz);
+            refresh();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Tồn tại sinh viên thuộc lớp này!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -105,7 +116,7 @@ public class ClassInfoController implements Initializable {
         FXMLLoader loader = App.loadFXML("TeacherFunc");
         loader.load();
         TeacherFuncController controller = loader.getController();
-        controller.setUsername(cur,null);
+        controller.setUsername(cur,sem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -136,7 +147,7 @@ public class ClassInfoController implements Initializable {
         FXMLLoader loader = App.loadFXML("ClassDetail");
         loader.load();
         ClassDetailController controller = loader.getController();
-        controller.setUsernameText(cur,clazz);
+        controller.setUsernameText(cur,clazz,sem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

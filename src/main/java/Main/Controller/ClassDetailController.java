@@ -6,6 +6,7 @@ import Main.DAO.StudentDAO;
 import Main.DAO.UserDAO;
 import Main.POJO.ClassInfo;
 import Main.POJO.Clazz;
+import Main.POJO.Semester;
 import Main.POJO.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,7 +52,7 @@ public class ClassDetailController implements Initializable {
     @FXML
     private Label infoText;
     private User cur;
-
+    private Semester sem;
     private ObservableList<User> studentList= FXCollections.observableArrayList();
     private List<User> src = null;
     private Clazz curClass;
@@ -75,12 +76,13 @@ public class ClassDetailController implements Initializable {
         studentTable.setItems(studentList);
     }
 
-    public void setUsernameText(User user, Clazz clazz)
+    public void setUsernameText(User user, Clazz clazz, Semester sem)
     {
         if(user!= null)
             usernameText.setText(user.getName()+", ");
         cur=user;
         curClass=clazz;
+        this.sem = sem;
         infoText.setText("Thông tin lớp "+clazz.getClassId());
         refresh();
     }
@@ -179,7 +181,7 @@ public class ClassDetailController implements Initializable {
         FXMLLoader loader = App.loadFXML("ClassInfo");
         loader.load();
         ClassInfoController controller = loader.getController();
-        controller.setUsernameText(cur);
+        controller.setUsernameText(cur,sem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

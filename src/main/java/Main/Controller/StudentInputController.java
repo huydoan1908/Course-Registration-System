@@ -93,7 +93,6 @@ public class StudentInputController {
             if (female.isSelected()) {
                 user.setGender(true);
             }
-
         }
         if(!update) {
             if(findUser(user))

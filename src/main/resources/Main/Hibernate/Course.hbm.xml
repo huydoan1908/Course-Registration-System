@@ -29,5 +29,8 @@
         <property name="maxSlot">
             <column name="max_slot" sql-type="int"/>
         </property>
+        <property name="current">
+            <column name="current" sql-type="int"/>
+        </property>
     </class>
 </hibernate-mapping>

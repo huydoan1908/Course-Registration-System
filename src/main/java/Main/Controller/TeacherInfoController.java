@@ -2,6 +2,7 @@ package Main.Controller;
 
 import Main.App;
 import Main.DAO.UserDAO;
+import Main.POJO.Semester;
 import Main.POJO.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,6 +48,7 @@ public class TeacherInfoController implements Initializable {
     @FXML
     private TextField searchText;
     private User cur;
+    private Semester sem;
 
     ObservableList<User> teacherList= FXCollections.observableArrayList();
     List<User> src;
@@ -55,11 +57,12 @@ public class TeacherInfoController implements Initializable {
         refresh();
     }
 
-    public void setUsernameText(User user)
+    public void setUsernameText(User user, Semester sem)
     {
         if(user != null)
             usernameText.setText(user.getName()+", ");
         cur=user;
+        this.sem = sem;
     }
 
     @FXML
@@ -100,19 +103,26 @@ public class TeacherInfoController implements Initializable {
     }
 
     @FXML
-    private void delete(ActionEvent e)
-    {
+    private void delete(ActionEvent e) throws IOException {
         User user = teacherTable.getSelectionModel().getSelectedItem();
         if(user == null)
             return;
-        UserDAO.deleteUser(user);
-        refresh();
-
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Bạn muốn xóa giáo viên " + user.getId()+" ?");
+        if(alert.showAndWait().get()== ButtonType.OK) {
+            UserDAO.deleteUser(user);
+            refresh();
+            if(user.equals(cur)) {
+                logout();
+            }
+        }
     }
 
     @FXML
     private void update(ActionEvent e) throws IOException {
         User user = teacherTable.getSelectionModel().getSelectedItem();
+        if(user == null)
+            return;
         FXMLLoader loader = App.loadFXML("TeacherInput");
         loader.load();
         TeacherInputController controller = loader.getController();
@@ -127,6 +137,10 @@ public class TeacherInfoController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         refresh();
+        for(User i:teacherList)
+            if(i.getId().compareTo(cur.getId())==0)
+                cur=i;
+        usernameText.setText(user.getName()+", ");
     }
 
     @FXML
@@ -139,7 +153,7 @@ public class TeacherInfoController implements Initializable {
         FXMLLoader loader = App.loadFXML("TeacherFunc");
         loader.load();
         TeacherFuncController controller = loader.getController();
-        controller.setUsername(cur,null);
+        controller.setUsername(cur,sem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

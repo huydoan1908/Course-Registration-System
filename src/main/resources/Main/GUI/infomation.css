@@ -1,0 +1,9 @@
+.text-field {
+    -fx-border-color: black;
+    -fx-background-color: white ;
+    -fx-border-radius: 5;
+}
+
+.button{
+    -fx-cursor: hand;
+}

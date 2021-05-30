@@ -30,6 +30,27 @@ public class CourseDAO {
         }
         return course;
     }
+
+    public static List<Course> getAllBySubject(String subj)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Course> course = null;
+        try
+        {
+            final String hql = "from Course where subjId ='"+subj+"'";
+            Query query = session.createQuery(hql);
+            course = query.list();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return course;
+    }
+
     public static List<CourseInfo> getAllCourseInSemById(Integer sem, String id)
     {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -54,7 +75,8 @@ public class CourseDAO {
                         ((Course)res.get(i)[0]).getRoom(),
                         ((Course)res.get(i)[0]).getDayOfWeek(),
                         ((Main.POJO.Session)res.get(i)[3]).toString(),
-                        ((Course)res.get(i)[0]).getMaxSlot()));
+                        ((Course)res.get(i)[0]).getMaxSlot(),
+                        ((Course)res.get(i)[0]).getCurrent()));
             }
         }
         catch (HibernateException e)
@@ -90,7 +112,8 @@ public class CourseDAO {
                         ((Course)res.get(i)[0]).getRoom(),
                         ((Course)res.get(i)[0]).getDayOfWeek(),
                         ((Main.POJO.Session)res.get(i)[3]).toString(),
-                        ((Course)res.get(i)[0]).getMaxSlot()));
+                        ((Course)res.get(i)[0]).getMaxSlot(),
+                        ((Course)res.get(i)[0]).getCurrent()));
             }
         }
         catch (HibernateException e)

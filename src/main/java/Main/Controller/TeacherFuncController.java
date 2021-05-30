@@ -35,7 +35,7 @@ public class TeacherFuncController {
         FXMLLoader loader = App.loadFXML("TeacherInfo");
         loader.load();
         TeacherInfoController controller = loader.getController();
-        controller.setUsernameText(cur);
+        controller.setUsernameText(cur,curSem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -47,7 +47,7 @@ public class TeacherFuncController {
         FXMLLoader loader = App.loadFXML("SubjectInfo");
         loader.load();
         SubjectInfoController controller = loader.getController();
-        controller.setUsernameText(cur);
+        controller.setUsernameText(cur,curSem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -71,7 +71,7 @@ public class TeacherFuncController {
         FXMLLoader loader = App.loadFXML("ClassInfo");
         loader.load();
         ClassInfoController controller = loader.getController();
-        controller.setUsernameText(cur);
+        controller.setUsernameText(cur,curSem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -118,6 +118,18 @@ public class TeacherFuncController {
             stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
             stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
         }
+    }
+    @FXML
+    private void account(ActionEvent e) throws IOException {
+        FXMLLoader loader = App.loadFXML("TeacherAccount");
+        loader.load();
+        TeacherAccountController controller = loader.getController();
+        controller.setData(cur,curSem);
+        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(loader.getRoot()));
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
     }
     @FXML
     private void logout() throws IOException {

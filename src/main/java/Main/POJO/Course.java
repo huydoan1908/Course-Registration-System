@@ -16,6 +16,7 @@ public class Course {
     private String dayOfWeek;
     private String sessId;
     private Integer maxSlot;
+    private Integer current;
 
     @Id
     @Column(name = "course_id", nullable = false)
@@ -95,6 +96,16 @@ public class Course {
 
     public void setMaxSlot(Integer maxSlot) {
         this.maxSlot = maxSlot;
+    }
+
+    @Basic
+    @Column(name = "current", nullable = true)
+    public Integer getCurrent() {
+        return maxSlot;
+    }
+
+    public void setCurrent(Integer current) {
+        this.current = current;
     }
 
     @Override

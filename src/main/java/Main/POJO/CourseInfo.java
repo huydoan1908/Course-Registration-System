@@ -10,10 +10,11 @@ public class CourseInfo {
     private String dayOfWeek;
     private String session;
     private Integer maxSlot;
+    private Integer current;
 
     public CourseInfo() { }
 
-    public CourseInfo(Integer courseId, String subjectId, String subjectName, Integer credits, String teacher, String room, String dayOfWeek, String session, Integer maxSlot) {
+    public CourseInfo(Integer courseId, String subjectId, String subjectName, Integer credits, String teacher, String room, String dayOfWeek, String session, Integer maxSlot, Integer current) {
         this.courseId = courseId;
         this.subjectId = subjectId;
         this.subjectName = subjectName;
@@ -23,6 +24,7 @@ public class CourseInfo {
         this.dayOfWeek = dayOfWeek;
         this.session = session;
         this.maxSlot = maxSlot;
+        this.current = current;
     }
 
     public String getSubjectId() {
@@ -97,4 +99,11 @@ public class CourseInfo {
         this.maxSlot = maxSlot;
     }
 
+    public Integer getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Integer current) {
+        this.current = current;
+    }
 }

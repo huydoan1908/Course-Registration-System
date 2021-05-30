@@ -121,6 +121,9 @@ public class SemesterInfoController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         refresh();
+        for(Semester i:semesterList)
+            if(i.getSemId() == curSem.getSemId())
+                curSem=i;
     }
 
     @FXML
