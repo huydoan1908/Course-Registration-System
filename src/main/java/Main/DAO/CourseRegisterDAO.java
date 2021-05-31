@@ -140,4 +140,27 @@ public class CourseRegisterDAO {
             session.close();
         }
     }
+
+    public static boolean isCourseRegister(int semId)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<CourseRegister> info = null;
+        try
+        {
+            final String hql = "from CourseRegister where semId = " + semId +
+                    " and (current_date()) between startDate and endDate";
+            Query query = session.createQuery(hql);
+            info = query.list();
+            if(!info.isEmpty())
+                return true;
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return false;
+    }
 }

@@ -6,6 +6,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class SemesterDAO {
@@ -99,5 +103,39 @@ public class SemesterDAO {
             session.close();
         }
         return semester;
+    }
+
+    public static Semester getSemesterById(int id)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Semester> semester = null;
+        try
+        {
+            final String hql = "from Semester where semId = '" + id+ "'";
+            Query query = session.createQuery(hql);
+            semester=query.list();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return semester.get(0);
+    }
+    public static void writeFile(int semId) throws IOException {
+        FileOutputStream file = new FileOutputStream("src\\main\\resources\\Main\\BIN\\Sem.bin");
+        file.write(semId);
+        file.close();
+    }
+
+    public static int readFile() throws IOException {
+        FileInputStream file = new FileInputStream("src\\main\\resources\\Main\\BIN\\Sem.bin");
+        int res =-1;
+        if(file.available() == 0)
+            return res;
+        res=file.read();
+        return res;
     }
 }

@@ -2,6 +2,7 @@ package Main.Controller;
 
 import Main.App;
 import Main.DAO.UserDAO;
+import Main.POJO.Semester;
 import Main.POJO.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ public class LoginController {
             loader.load();
             TeacherFuncController controller = loader.getController();
             controller.setUsername(user,null);
+            controller.setData();
             Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(loader.getRoot()));
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -48,7 +50,16 @@ public class LoginController {
             stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
         }
         else{
-
+            FXMLLoader loader = App.loadFXML("StudentFunc");
+            loader.load();
+            StudentFuncController controller = loader.getController();
+            controller.setUsername(user,null);
+            controller.setData();
+            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.getRoot()));
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
         }
     }
 

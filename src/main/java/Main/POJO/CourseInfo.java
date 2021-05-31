@@ -1,5 +1,7 @@
 package Main.POJO;
 
+import javafx.scene.control.CheckBox;
+
 public class CourseInfo {
     private Integer courseId;
     private String subjectId;
@@ -11,6 +13,7 @@ public class CourseInfo {
     private String session;
     private Integer maxSlot;
     private Integer current;
+    private CheckBox select;
 
     public CourseInfo() { }
 
@@ -25,6 +28,7 @@ public class CourseInfo {
         this.session = session;
         this.maxSlot = maxSlot;
         this.current = current;
+        this.select= new CheckBox();
     }
 
     public String getSubjectId() {
@@ -105,5 +109,13 @@ public class CourseInfo {
 
     public void setCurrent(Integer current) {
         this.current = current;
+    }
+
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(CheckBox select) {
+        this.select = select;
     }
 }

@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
-
-public class TeacherAccountController {
+public class AccountController {
     @FXML
     private TextField nameText;
     @FXML
@@ -41,14 +40,13 @@ public class TeacherAccountController {
     private User user;
     private Semester sem;
 
-    public void setData(User user, Semester sem)
-    {
+    public void setData(User user, Semester sem) {
         this.user = user;
         this.sem = sem;
         nameText.setText(user.getName());
         idText.setText(user.getId());
         dayText.setValue(user.getBirthday().toLocalDate());
-        if(user.getGender())
+        if (user.getGender())
             female.setSelected(true);
         else
             male.setSelected(true);
@@ -56,8 +54,7 @@ public class TeacherAccountController {
     }
 
     @FXML
-    private void update(ActionEvent e)
-    {
+    private void update(ActionEvent e) {
         edit.setVisible(false);
         save.setVisible(true);
         nameText.setDisable(false);
@@ -66,21 +63,19 @@ public class TeacherAccountController {
         female.setDisable(false);
     }
 
-    @FXML private void save(ActionEvent e)
-    {
+    @FXML
+    private void save(ActionEvent e) {
         String name = nameText.getText();
         LocalDate day = dayText.getValue();
-        if(name.isEmpty()|| day == null)
-        {
+        if (name.isEmpty() || day == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Hãy điền tất cả thông tin");
             alert.showAndWait();
-        }
-        else {
+        } else {
             user.setName(name);
             user.setBirthday(Date.valueOf(day));
-            if(male.isSelected())
+            if (male.isSelected())
                 user.setGender(false);
             else
                 user.setGender(true);
@@ -96,6 +91,7 @@ public class TeacherAccountController {
         }
 
     }
+
     @FXML
     private void changePass(ActionEvent e) throws IOException {
         FXMLLoader loader = App.loadFXML("Password");
@@ -103,7 +99,7 @@ public class TeacherAccountController {
         PasswordController controller = loader.getController();
         controller.setData(user);
         Scene scene = new Scene(loader.getRoot());
-        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Stage primary = (Stage) ((Node) e.getSource()).getScene().getWindow();
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
@@ -111,21 +107,34 @@ public class TeacherAccountController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
     }
+
     @FXML
     private void logout(ActionEvent e) throws IOException {
-        App.changeScene("Login","");
+        App.changeScene("Login", "");
     }
 
     @FXML
     private void back(ActionEvent e) throws IOException {
-        FXMLLoader loader = App.loadFXML("TeacherFunc");
-        loader.load();
-        TeacherFuncController controller = loader.getController();
-        controller.setUsername(user,sem);
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(loader.getRoot()));
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+        if (user.getRoleId().compareTo("TCH") == 0) {
+            FXMLLoader loader = App.loadFXML("TeacherFunc");
+            loader.load();
+            TeacherFuncController controller = loader.getController();
+            controller.setUsername(user, sem);
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.getRoot()));
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+        } else {
+            FXMLLoader loader = App.loadFXML("StudentFunc");
+            loader.load();
+            StudentFuncController controller = loader.getController();
+            controller.setUsername(user, sem);
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(loader.getRoot()));
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+        }
     }
 }

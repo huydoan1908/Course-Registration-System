@@ -13,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -100,8 +97,17 @@ public class SemesterInfoController implements Initializable {
         Semester semester = semesterTable.getSelectionModel().getSelectedItem();
         if(semester == null)
             return;
-        SemesterDAO.deleteSemester(semester);
-        refresh();
+        if(semester.getSemId() == curSem.getSemId())
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Không được xóa học kỳ hiện tại!");
+            alert.showAndWait();
+            return;
+        }else {
+            SemesterDAO.deleteSemester(semester);
+            refresh();
+        }
     }
 
     @FXML
@@ -162,12 +168,12 @@ public class SemesterInfoController implements Initializable {
     }
 
     @FXML
-    private void setCurrentSem(ActionEvent e)
-    {
+    private void setCurrentSem(ActionEvent e) throws IOException {
         Semester semester = semesterTable.getSelectionModel().getSelectedItem();
         if(semester != null) {
             curSem = semester;
             curSemText.setText("Học kỳ hiện tại: "+semester.getSemName()+" - "+semester.getSemYear());
+            SemesterDAO.writeFile(curSem.getSemId());
         }
     }
 }

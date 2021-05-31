@@ -74,10 +74,8 @@ public class TeacherInfoController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<User,String>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<User,Date>("birthday"));
-        //genderCol.setCellValueFactory(new PropertyValueFactory<User,Byte>("gender"));
         usernameCol.setCellValueFactory(new PropertyValueFactory<User,String>("username"));
         passwordCol.setCellValueFactory(new PropertyValueFactory<User,String>("password"));
-
         Callback<TableColumn<User, Boolean>, TableCell<User,Boolean>> booleanCellFactory = new Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>>() {
             @Override
             public TableCell<User, Boolean> call(TableColumn<User, Boolean> userBooleanTableColumn) {

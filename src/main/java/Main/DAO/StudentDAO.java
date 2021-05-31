@@ -57,4 +57,25 @@ public class StudentDAO {
         return student;
     }
 
+    public static int countCourse(String stuId, int semId)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        int res = 0;
+        try
+        {
+            final String hql = "select count(a.courseId) from Course c, Attend a where c.courseId = a.courseId " +
+                    "and a.studentId = '" +stuId+ "' " +
+                    "and c.semiId = " +semId;
+            Query query = session.createQuery(hql);
+            res = ((Long)query.getSingleResult()).intValue();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return res;
+    }
 }

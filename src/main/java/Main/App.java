@@ -1,5 +1,7 @@
 package Main;
 
+import Main.DAO.CourseRegisterDAO;
+import Main.DAO.StudentDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -42,6 +44,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+        //System.out.println(CourseRegisterDAO.isCourseRegister());
     }
 
 }

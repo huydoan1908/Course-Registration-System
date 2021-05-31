@@ -1,6 +1,7 @@
 package Main.Controller;
 
 import Main.App;
+import Main.DAO.SemesterDAO;
 import Main.POJO.Semester;
 import Main.POJO.User;
 import javafx.event.ActionEvent;
@@ -22,6 +23,13 @@ public class TeacherFuncController {
 
     private User cur;
     private Semester curSem;
+    public void setData() throws IOException {
+        int res = SemesterDAO.readFile();
+        if(res == -1)
+            curSem = null;
+        else
+            curSem = SemesterDAO.getSemesterById(res);
+    }
     public void setUsername(User user, Semester sem)
     {
         if(user != null)
@@ -121,9 +129,9 @@ public class TeacherFuncController {
     }
     @FXML
     private void account(ActionEvent e) throws IOException {
-        FXMLLoader loader = App.loadFXML("TeacherAccount");
+        FXMLLoader loader = App.loadFXML("Account");
         loader.load();
-        TeacherAccountController controller = loader.getController();
+        AccountController controller = loader.getController();
         controller.setData(cur,curSem);
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
