@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" stylesheets="@table.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.CourseDetailController">
+    <top>
+        <AnchorPane prefHeight="100.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="64.0" fitWidth="76.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="8.0">
+                    <image>
+                        <Image url="@../img/HCMUS.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="searchText" layoutX="147.0" layoutY="8.0" prefHeight="30.0" prefWidth="206.0" promptText="Tìm theo MSSV" />
+                <Button layoutX="346.0" layoutY="8.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="80.0" style="-fx-background-color: #16479f; -fx-background-radius: 3;" text="Search" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Label layoutX="190.0" layoutY="50.0" text="Thông tin lớp học phần" textFill="#16479f">
+                    <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                    </font>
+                </Label>
+            <Label fx:id="infoText" layoutX="59.0" layoutY="84.0" prefHeight="18.0" prefWidth="414.0" text="Thông tin lớp học phần" AnchorPane.bottomAnchor="-2.0">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </Label>
+                <Button layoutX="462.0" layoutY="48.0" mnemonicParsing="false" onAction="#refresh" prefHeight="20.0" prefWidth="74.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="Refresh" textFill="WHITE">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+      <AnchorPane>
+         <children>
+              <ScrollPane layoutX="58.0" layoutY="5.0" prefHeight="273.0" prefWidth="434.0" BorderPane.alignment="CENTER">
+                  <content>
+                      <TableView fx:id="studentTable" prefHeight="323.0" prefWidth="432.0">
+                          <columns>
+                              <TableColumn fx:id="idCol" prefWidth="120.0" text="MSSV" />
+                              <TableColumn fx:id="nameCol" prefWidth="250.0" text="Họ tên" />
+                        <TableColumn fx:id="genderCol" prefWidth="46.0" text="Nữ" />
+                          </columns>
+                      </TableView>
+                  </content>
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <BorderPane.margin>
+                      <Insets bottom="8.0" left="8.0" />
+                  </BorderPane.margin>
+              </ScrollPane>
+         </children>
+      </AnchorPane>
+    </center>
+</BorderPane>

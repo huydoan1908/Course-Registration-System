@@ -83,7 +83,7 @@
                         <Font name="Calibri Bold" size="14.0" />
                     </font>
                 </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="105.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="HP đã đăng ký" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#registration" prefHeight="35.0" prefWidth="105.0" style="-fx-background-radius: 0; -fx-background-color: #16479f;" text="HP đã đăng ký" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="14.0" />
                </font>

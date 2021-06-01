@@ -93,8 +93,12 @@ public class SubjectInfoController implements Initializable {
         List<Course> courses = CourseDAO.getAllBySubject(subject.getSubjectId());
         if(courses.isEmpty())
         {
-            SubjectDAO.deleteSubject(subject);
-            refresh();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Bạn muốn xóa môn " + subject.getSubjectName()+" ?");
+            if(alert.showAndWait().get()== ButtonType.OK) {
+                SubjectDAO.deleteSubject(subject);
+                refresh();
+            }
         }
         else
         {

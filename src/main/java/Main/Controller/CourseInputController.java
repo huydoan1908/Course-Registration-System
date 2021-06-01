@@ -73,6 +73,7 @@ public class CourseInputController implements Initializable {
             course.setTeacher(teacher);
             course.setRoom(room);
             course.setMaxSlot(Integer.parseInt(max));
+            course.setCurrent(0);
             course.setDayOfWeek(day);
             course.setSessId(session.getSessId());
             course.setSemiId(sem.getSemId());

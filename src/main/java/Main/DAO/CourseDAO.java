@@ -31,6 +31,26 @@ public class CourseDAO {
         return course;
     }
 
+    public static List<Course> getAllInSem(int semId)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Course> course = null;
+        try
+        {
+            final String hql = "from Course where semiId =" +semId;
+            Query query = session.createQuery(hql);
+            course = query.list();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return course;
+    }
+
     public static List<Course> getAllBySubject(String subj)
     {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -181,6 +201,25 @@ public class CourseDAO {
             session.close();
         }
     }
+
+    public static void updateCourse(Course course)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction();
+            session.update(course);
+            session.getTransaction().commit();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+    }
+
     public static void deleteCourse(Course course)
     {
         session = HibernateUtil.getSessionFactory().openSession();

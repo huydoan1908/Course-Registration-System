@@ -2,10 +2,7 @@ package Main.Controller;
 
 import Main.App;
 import Main.DAO.CourseDAO;
-import Main.POJO.Attend;
-import Main.POJO.CourseInfo;
-import Main.POJO.Semester;
-import Main.POJO.User;
+import Main.POJO.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,6 +54,7 @@ public class CourseRegistController implements Initializable {
 
     private User cur;
     private Semester curSem;
+    private List<Course> allCourse;
     ObservableList<CourseInfo> courseList= FXCollections.observableArrayList();
     List<CourseInfo> src;
     List<CourseInfo> isRegisted;
@@ -83,7 +81,7 @@ public class CourseRegistController implements Initializable {
         semText.setText("Học kỳ hiện tại: "+sem.getSemName()+" - " +sem.getSemYear().toString());
         isRegisted = CourseDAO.getAllCourseOfStudent(curSem.getSemId(),cur.getId());
         totalText.setText("Số môn đã đăng ký: "+ isRegisted.size());
-
+        allCourse = CourseDAO.getAllInSem(curSem.getSemId());
         refresh();
     }
 
@@ -93,6 +91,8 @@ public class CourseRegistController implements Initializable {
         courseList.clear();
         src = CourseDAO.getAllCourseInSem(curSem.getSemId());
         for(CourseInfo i : src) {
+            if(i.getCurrent().equals(i.getMaxSlot()))
+                i.getSelect().setDisable(true);
             for(CourseInfo j : isRegisted)
                 if(i.getCourseId().equals(j.getCourseId())) {
                     i.getSelect().setSelected(true);
@@ -142,12 +142,19 @@ public class CourseRegistController implements Initializable {
     @FXML
     private void confirm(ActionEvent e)
     {
+        if(isRegisted.size() == 8)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Số lượng học phần đã đạt tối đa!");
+            alert.showAndWait();
+            return;
+        }
         List<CourseInfo> selected = getSelected();
         for(int i =0;i<selected.size();i++){
             //Kiểm tra các học phần đc chọn hợp lệ
             for(int j = i+1;j<selected.size();j++)
             {
-                System.out.println(j);
                 if(selected.get(i).getSubjectId().compareTo(selected.get(j).getSubjectId())==0 || (selected.get(i).getDayOfWeek().compareTo(selected.get(j).getDayOfWeek())==0 && selected.get(i).getSession().compareTo(selected.get(j).getSession())==0))
                 {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -173,6 +180,13 @@ public class CourseRegistController implements Initializable {
         for(CourseInfo i : selected)
         {
             isRegisted.add(i);
+            for(Course j : allCourse)
+            {
+                if(i.getCourseId().equals(j.getCourseId())){
+                    j.setCurrent(j.getCurrent()+1);
+                    CourseDAO.updateCourse(j);
+                }
+            }
             Attend attend = new Attend();
             attend.setStudentId(cur.getId());
             attend.setCourseId(i.getCourseId());

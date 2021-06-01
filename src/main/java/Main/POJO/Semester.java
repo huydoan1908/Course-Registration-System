@@ -77,4 +77,9 @@ public class Semester {
     public int hashCode() {
         return Objects.hash(semId, semName, semYear, startDate, endDate);
     }
+
+    @Override
+    public String toString() {
+        return semName +" - " +semYear;
+    }
 }

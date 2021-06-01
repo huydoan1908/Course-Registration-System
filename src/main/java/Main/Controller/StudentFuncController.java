@@ -80,4 +80,30 @@ public class StudentFuncController {
             return;
         }
     }
+
+    @FXML
+    private void result(ActionEvent e) throws IOException {
+        FXMLLoader loader = App.loadFXML("RegistrationResult");
+        loader.load();
+        RegistrationResultController controller = loader.getController();
+        controller.setUsernameText(cur, curSem);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(loader.getRoot()));
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+    }
+
+    @FXML
+    private void edit(ActionEvent e) throws IOException {
+        FXMLLoader loader = App.loadFXML("RegistrationEdit");
+        loader.load();
+        RegistrationEditController controller = loader.getController();
+        controller.setUsernameText(cur, curSem);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(loader.getRoot()));
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+    }
 }

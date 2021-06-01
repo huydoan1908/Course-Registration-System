@@ -63,7 +63,7 @@
                   <Insets right="15.0" />
                </GridPane.margin>
                   </Button>
-                  <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Kết quả ĐKHP" textFill="#16479f" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" onAction="#result" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Kết quả ĐKHP" textFill="#16479f" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                       <graphic>
                           <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -75,7 +75,7 @@
                           <Font name="Calibri Bold" size="14.0" />
                       </font>
                   </Button>
-                  <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Điều chỉnh ĐKHP" textFill="#16479f" GridPane.columnIndex="2">
+                  <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" onAction="#edit" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 0; -fx-background-color: white; -fx-border-color: #16479f; -fx-border-width: 2.5;" text="Điều chỉnh ĐKHP" textFill="#16479f" GridPane.columnIndex="2">
                       <font>
                           <Font name="Calibri Bold" size="14.0" />
                       </font>

@@ -1,7 +1,10 @@
 package Main.Controller;
 
 import Main.App;
+import Main.DAO.CourseDAO;
+import Main.DAO.CourseRegisterDAO;
 import Main.DAO.SemesterDAO;
+import Main.POJO.CourseRegister;
 import Main.POJO.Semester;
 import Main.POJO.User;
 import javafx.collections.FXCollections;
@@ -97,6 +100,15 @@ public class SemesterInfoController implements Initializable {
         Semester semester = semesterTable.getSelectionModel().getSelectedItem();
         if(semester == null)
             return;
+        List<CourseRegister> list = CourseRegisterDAO.getAllById(semester.getSemId());
+        if(!list.isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Tồn tại kỳ đăng ký thuộc học kỳ này!");
+            alert.showAndWait();
+            return;
+        }
         if(semester.getSemId() == curSem.getSemId())
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -104,7 +116,10 @@ public class SemesterInfoController implements Initializable {
             alert.setContentText("Không được xóa học kỳ hiện tại!");
             alert.showAndWait();
             return;
-        }else {
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Bạn muốn xóa " + semester.toString()+" ?");
+        if(alert.showAndWait().get()== ButtonType.OK) {
             SemesterDAO.deleteSemester(semester);
             refresh();
         }

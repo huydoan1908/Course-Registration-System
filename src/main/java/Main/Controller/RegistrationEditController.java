@@ -2,9 +2,7 @@ package Main.Controller;
 
 import Main.App;
 import Main.DAO.CourseDAO;
-import Main.DAO.CourseRegisterDAO;
 import Main.DAO.StudentDAO;
-import Main.DAO.SubjectDAO;
 import Main.POJO.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,17 +15,16 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CourseInfoController implements Initializable {
+public class RegistrationEditController implements Initializable {
     @FXML
     private TableView<CourseInfo> courseTable;
     @FXML
@@ -46,18 +43,22 @@ public class CourseInfoController implements Initializable {
     private TableColumn<CourseInfo, String> sessionCol;
     @FXML
     private TableColumn<CourseInfo, Integer> maxCol;
+    @FXML
+    private TableColumn<CourseInfo, CheckBox> selectCol;
 
     @FXML
     private Label usernameText;
     @FXML
-    private TextField searchText;
-    @FXML
     private Label semText;
+    @FXML
+    private Label totalText;
+
     private User cur;
     private Semester curSem;
+    private List<Course> allCourse;
+    private List<Attend> allAttend;
     ObservableList<CourseInfo> courseList= FXCollections.observableArrayList();
-    List<CourseInfo> src;
-
+    List<CourseInfo> isRegisted;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         idCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("subjectId"));
@@ -68,6 +69,7 @@ public class CourseInfoController implements Initializable {
         dayCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("dayOfWeek"));
         sessionCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("session"));
         maxCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,Integer>("maxSlot"));
+        selectCol.setCellValueFactory(new  PropertyValueFactory<CourseInfo,CheckBox>("select"));
         courseTable.setItems(courseList);
     }
 
@@ -78,6 +80,10 @@ public class CourseInfoController implements Initializable {
         cur=user;
         curSem = sem;
         semText.setText("Học kỳ hiện tại: "+sem.getSemName()+" - " +sem.getSemYear().toString());
+        isRegisted = CourseDAO.getAllCourseOfStudent(curSem.getSemId(),cur.getId());
+        totalText.setText("Số môn đã đăng ký: "+ isRegisted.size());
+        allCourse = CourseDAO.getAllInSem(curSem.getSemId());
+        allAttend = StudentDAO.getAllAttendOfStudent(user.getId());
         refresh();
     }
 
@@ -85,9 +91,7 @@ public class CourseInfoController implements Initializable {
     private void refresh()
     {
         courseList.clear();
-        src = CourseDAO.getAllCourseInSem(curSem.getSemId());
-        for(CourseInfo i : src)
-            courseList.add(i);
+        courseList.addAll(isRegisted);
         idCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("subjectId"));
         nameCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("subjectName"));
         creditCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,Integer>("credits"));
@@ -100,98 +104,61 @@ public class CourseInfoController implements Initializable {
     }
 
     @FXML
-    private void add(ActionEvent e) throws IOException {
-        FXMLLoader loader = App.loadFXML("CourseInput");
-        loader.load();
-        CourseInputController controller = loader.getController();
-        controller.setSem(curSem);
-        Stage primary = (Stage)((Node)e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(loader.getRoot());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initOwner(primary);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        refresh();
-    }
-
-    @FXML
-    private void delete(ActionEvent e)
-    {
-        CourseInfo info = courseTable.getSelectionModel().getSelectedItem();
-        List<User> list = StudentDAO.getAllStudentInCourse(info.getCourseId());
-        if(!list.isEmpty())
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Tồn tại sinh viên đã đăng ký học phần này!");
-            alert.showAndWait();
-            return;
-        }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("Bạn muốn xóa học phần này ?");
-        if(alert.showAndWait().get()== ButtonType.OK) {
-            Course del = new Course();
-            del.setCourseId(info.getCourseId());
-            CourseDAO.deleteCourse(del);
-            refresh();
-        }
-    }
-
-    @FXML
-    private void detail(ActionEvent e) throws IOException {
-        CourseInfo info = courseTable.getSelectionModel().getSelectedItem();
-        if(info==null)
-            return;
-        FXMLLoader loader = App.loadFXML("CourseDetail");
-        loader.load();
-        CourseDetailController controller = loader.getController();
-        controller.setUsernameText(cur,info,curSem);
-        Scene scene = new Scene(loader.getRoot());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-    }
-
-    @FXML
-    private void logout() throws IOException {
-        App.changeScene("Login","");
+    private void logout(ActionEvent e) throws IOException {
+        App.changeScene("Login", "");
     }
 
     @FXML
     private void back(ActionEvent e) throws IOException {
-        FXMLLoader loader = App.loadFXML("TeacherFunc");
+        FXMLLoader loader = App.loadFXML("StudentFunc");
         loader.load();
-        TeacherFuncController controller = loader.getController();
-        controller.setUsername(cur,curSem);
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        StudentFuncController controller = loader.getController();
+        controller.setUsername(cur, curSem);
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.setScene(new Scene(loader.getRoot()));
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
     }
 
-    @FXML
-    private void search(ActionEvent e)
+    private List<CourseInfo> getSelected()
     {
-        String res = searchText.getText();
-        if(res.isEmpty()){ }
-        else{
-            courseList.clear();
-            src = CourseDAO.getAllCourseInSemById(curSem.getSemId(),res);
-            for(CourseInfo i : src)
-                courseList.add(i);
-            idCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("subjectId"));
-            nameCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("subjectName"));
-            creditCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,Integer>("credits"));
-            teacherCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("teacher"));
-            roomCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("room"));
-            dayCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("dayOfWeek"));
-            sessionCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,String>("session"));
-            maxCol.setCellValueFactory(new PropertyValueFactory<CourseInfo,Integer>("maxSlot"));
-            courseTable.setItems(courseList);
+        List<CourseInfo> selectedCourse = new ArrayList<CourseInfo>();
+        for(CourseInfo i : courseList) {
+            if (i.getSelect().isSelected() && !i.getSelect().isDisable())
+                selectedCourse.add(i);
         }
+        return selectedCourse;
+    }
+
+    @FXML
+    private void delete(ActionEvent e)
+    {
+        List<CourseInfo> selected = getSelected();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Bạn muốn hủy đăng ký học phần này ?");
+        if(alert.showAndWait().get()== ButtonType.OK) {
+            for(CourseInfo i : selected)
+            {
+                for(Course j : allCourse)
+                {
+                    if(i.getCourseId().equals(j.getCourseId()))
+                    {
+                        j.setCurrent(j.getCurrent()-1);
+                        CourseDAO.updateCourse(j);
+                    }
+                }
+                for(Attend j : allAttend)
+                {
+                    if(i.getCourseId().equals(j.getCourseId()))
+                    {
+                        CourseDAO.deleteAttend(j);
+                    }
+                }
+                isRegisted.remove(i);
+            }
+        }
+        totalText.setText("Số môn đã đăng ký: "+ isRegisted.size());
+        refresh();
     }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" stylesheets="@table.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller.StudentCourseController">
+    <top>
+        <AnchorPane prefHeight="80.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="67.0" fitWidth="84.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/HCMUS.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="usernameText1" layoutX="249.0" layoutY="14.0" prefHeight="28.0" prefWidth="270.0" text="Kết quả đăng ký học phần" textFill="#16479f">
+                    <font>
+                        <Font name="Calibri Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Label fx:id="semText" layoutX="531.0" layoutY="50.0" prefHeight="22.0" prefWidth="52.0" text="Học kỳ: ">
+                    <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="semPicker" layoutX="583.0" layoutY="49.0" onAction="#choose" prefWidth="150.0" style="-fx-background-color: none;" />
+            <Label fx:id="usernameText" layoutX="107.0" layoutY="53.0" prefHeight="19.0" prefWidth="270.0" text="Sinh viên: 19120000 - Nguyễn Văn A">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </Label>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <content>
+                <TableView fx:id="courseTable" prefHeight="442.0" prefWidth="731.0">
+                    <columns>
+                        <TableColumn fx:id="idCol" prefWidth="120.0" text="Mã môn" />
+                        <TableColumn fx:id="nameCol" prefWidth="240.0" text="Tên môn học" />
+                        <TableColumn fx:id="teacherCol" prefWidth="120.0" text="GV lý thuyết" />
+                        <TableColumn fx:id="roomCol" prefWidth="60.0" text="Phòng" />
+                        <TableColumn fx:id="dayCol" prefWidth="50.0" text="Thứ" />
+                        <TableColumn fx:id="sessionCol" prefWidth="135.0" text="Ca" />
+                    </columns>
+                </TableView>
+            </content>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <BorderPane.margin>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="10.0" />
+            </BorderPane.margin>
+        </ScrollPane>
+    </center>
+</BorderPane>

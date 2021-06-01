@@ -33,6 +33,27 @@ public class CourseRegisterDAO {
         }
         return info;
     }
+
+    public static List<CourseRegister> getAllById(int semId)
+    {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<CourseRegister> info = null;
+        try
+        {
+            final String hql = "from CourseRegister where semId = "+semId;
+            Query query = session.createQuery(hql);
+            info = query.list();
+        }
+        catch (HibernateException e)
+        {
+            System.out.println(e);
+        }
+        finally {
+            session.close();
+        }
+        return info;
+    }
+
     public static List<CourseRegisterInfo> getAllRegister()
     {
         session = HibernateUtil.getSessionFactory().openSession();

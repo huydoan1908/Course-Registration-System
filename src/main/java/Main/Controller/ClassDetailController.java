@@ -4,10 +4,7 @@ import Main.App;
 import Main.DAO.ClassDAO;
 import Main.DAO.StudentDAO;
 import Main.DAO.UserDAO;
-import Main.POJO.ClassInfo;
-import Main.POJO.Clazz;
-import Main.POJO.Semester;
-import Main.POJO.User;
+import Main.POJO.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -171,6 +168,21 @@ public class ClassDetailController implements Initializable {
         refresh();
     }
 
+    @FXML
+    private void registration(ActionEvent e) throws IOException {
+        User user = studentTable.getSelectionModel().getSelectedItem();
+        if(user==null)
+            return;
+        FXMLLoader loader = App.loadFXML("StudentCourse");
+        loader.load();
+        StudentCourseController controller = loader.getController();
+        controller.setUsernameText(user,sem);
+        Scene scene = new Scene(loader.getRoot());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
     @FXML
     private void logout() throws IOException {
         App.changeScene("Login","");

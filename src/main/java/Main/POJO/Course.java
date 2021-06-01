@@ -18,6 +18,14 @@ public class Course {
     private Integer maxSlot;
     private Integer current;
 
+    public Course() {
+    }
+
+    public Course(int courseId, Integer current) {
+        this.courseId = courseId;
+        this.current = current;
+    }
+
     @Id
     @Column(name = "course_id", nullable = false)
     public int getCourseId() {
@@ -101,7 +109,7 @@ public class Course {
     @Basic
     @Column(name = "current", nullable = true)
     public Integer getCurrent() {
-        return maxSlot;
+        return current;
     }
 
     public void setCurrent(Integer current) {

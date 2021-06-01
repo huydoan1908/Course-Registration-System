@@ -15,10 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -108,13 +105,17 @@ public class CourseRegisterController implements Initializable {
         CourseRegisterInfo info = registerTable.getSelectionModel().getSelectedItem();
         if(info == null)
             return;
-        register=new CourseRegister();
-        register.setRegistId(info.getId());
-        register.setSemId(curSem.getSemId());
-        register.setStartDate(info.getStart());
-        register.setEndDate(info.getEnd());
-        CourseRegisterDAO.deleteCourseRegister(register);
-        refresh();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Bạn muốn xóa kỳ đăng ký " + info.toString()+" ?");
+        if(alert.showAndWait().get()== ButtonType.OK) {
+            register = new CourseRegister();
+            register.setRegistId(info.getId());
+            register.setSemId(curSem.getSemId());
+            register.setStartDate(info.getStart());
+            register.setEndDate(info.getEnd());
+            CourseRegisterDAO.deleteCourseRegister(register);
+            refresh();
+        }
     }
 
     @FXML

@@ -3,6 +3,7 @@ package Main;
 import Main.DAO.CourseRegisterDAO;
 import Main.DAO.StudentDAO;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ public class App extends Application {
         stage.getIcons().add(icon);
         stage.setTitle("PORTAL");
         stage.show();
+        stage.setOnCloseRequest(event -> Platform.exit());
     }
 
     public static FXMLLoader loadFXML(String fxml) throws IOException {
