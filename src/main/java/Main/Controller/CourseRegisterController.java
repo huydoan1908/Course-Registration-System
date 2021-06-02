@@ -83,7 +83,6 @@ public class CourseRegisterController implements Initializable {
 
     @FXML
     private void add(ActionEvent e) throws IOException {
-        CourseRegisterInfo info = registerTable.getSelectionModel().getSelectedItem();
         FXMLLoader loader = App.loadFXML("RegisterInput");
         loader.load();
         RegisterInputController controller = loader.getController();
@@ -121,6 +120,8 @@ public class CourseRegisterController implements Initializable {
     @FXML
     private void update(ActionEvent e) throws IOException {
         CourseRegisterInfo info = registerTable.getSelectionModel().getSelectedItem();
+        if(info == null)
+            return;
         FXMLLoader loader = App.loadFXML("RegisterInput");
         loader.load();
         RegisterInputController controller = loader.getController();

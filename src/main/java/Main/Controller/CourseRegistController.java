@@ -151,6 +151,14 @@ public class CourseRegistController implements Initializable {
             return;
         }
         List<CourseInfo> selected = getSelected();
+        if(isRegisted.size() + selected.size() > 8)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chỉ được đăng ký tối đa 8 học phần!");
+            alert.showAndWait();
+            return;
+        }
         for(int i =0;i<selected.size();i++){
             //Kiểm tra các học phần đc chọn hợp lệ
             for(int j = i+1;j<selected.size();j++)

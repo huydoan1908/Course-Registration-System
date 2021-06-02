@@ -120,6 +120,8 @@ public class CourseInfoController implements Initializable {
     private void delete(ActionEvent e)
     {
         CourseInfo info = courseTable.getSelectionModel().getSelectedItem();
+        if(info==null)
+            return;
         List<User> list = StudentDAO.getAllStudentInCourse(info.getCourseId());
         if(!list.isEmpty())
         {

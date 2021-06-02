@@ -144,6 +144,8 @@ public class ClassInfoController implements Initializable {
     @FXML
     private void detail(ActionEvent e) throws IOException {
         Clazz clazz = clazzTable.getSelectionModel().getSelectedItem();
+        if(clazz==null)
+            return;
         FXMLLoader loader = App.loadFXML("ClassDetail");
         loader.load();
         ClassDetailController controller = loader.getController();

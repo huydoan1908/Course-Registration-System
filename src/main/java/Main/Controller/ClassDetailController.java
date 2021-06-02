@@ -109,7 +109,6 @@ public class ClassDetailController implements Initializable {
 
     @FXML
     private void add(ActionEvent e) throws IOException {
-        User user = studentTable.getSelectionModel().getSelectedItem();
         FXMLLoader loader = App.loadFXML("StudentInput");
         loader.load();
         StudentInputController controller = loader.getController();
@@ -152,6 +151,8 @@ public class ClassDetailController implements Initializable {
     @FXML
     private void update(ActionEvent e) throws IOException {
         User user = studentTable.getSelectionModel().getSelectedItem();
+        if(user==null)
+            return;
         FXMLLoader loader = App.loadFXML("StudentInput");
         loader.load();
         StudentInputController controller = loader.getController();
@@ -231,6 +232,8 @@ public class ClassDetailController implements Initializable {
     private void reset(ActionEvent e)
     {
         User user = studentTable.getSelectionModel().getSelectedItem();
+        if(user==null)
+            return;
         user.setPassword(user.getUsername());
         UserDAO.updateUser(user);
         refresh();
