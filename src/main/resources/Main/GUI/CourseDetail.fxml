@@ -45,7 +45,7 @@
          <children>
               <ScrollPane layoutX="58.0" layoutY="5.0" prefHeight="273.0" prefWidth="434.0" BorderPane.alignment="CENTER">
                   <content>
-                      <TableView fx:id="studentTable" prefHeight="323.0" prefWidth="432.0">
+                      <TableView fx:id="studentTable" prefHeight="323.0" prefWidth="420.0">
                           <columns>
                               <TableColumn fx:id="idCol" prefWidth="120.0" text="MSSV" />
                               <TableColumn fx:id="nameCol" prefWidth="250.0" text="Họ tên" />

@@ -10,6 +10,9 @@ public class ClassInfo {
     private String studentId;
     private String classId;
 
+    public ClassInfo() {
+    }
+
     @Id
     @Column(name = "info_id", nullable = false)
     public int getInfoId() {

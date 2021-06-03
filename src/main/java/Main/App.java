@@ -22,8 +22,8 @@ public class App extends Application {
         stage = primaryStage;
         scene = new Scene(loadFXML("Login").load());
         stage.setScene(scene);
-        Image icon = new Image("Main/img/IconHCMUS.png");
-        stage.getIcons().add(icon);
+//        Image icon = new Image("/Main/img/IconHCMUS.png");
+//        stage.getIcons().add(icon);
         stage.setTitle("PORTAL");
         stage.show();
         stage.setOnCloseRequest(event -> Platform.exit());
@@ -46,7 +46,6 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-        //System.out.println(CourseRegisterDAO.isCourseRegister());
     }
 
 }

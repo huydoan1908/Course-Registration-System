@@ -13,6 +13,9 @@ public class Session {
     private Time startTime;
     private Time endTime;
 
+    public Session() {
+    }
+
     @Id
     @Column(name = "sess_id", nullable = false, length = 1)
     public String getSessId() {

@@ -21,7 +21,7 @@
                         <Font name="Calibri Bold" size="14.0" />
                     </font>
                 </Button>
-                <Label fx:id="usernameText" alignment="CENTER_RIGHT" layoutX="525.0" layoutY="3.0" prefHeight="20.0" prefWidth="150.0" text="Username">
+                <Label fx:id="usernameText" alignment="CENTER_RIGHT" layoutX="413.0" layoutY="3.0" prefHeight="20.0" prefWidth="262.0" text="Username">
                     <font>
                         <Font name="Calibri Bold" size="14.0" />
                     </font></Label>

@@ -12,6 +12,9 @@ public class Attend {
     private String studentId;
     private Integer courseId;
 
+    public Attend() {
+    }
+
     @Id
     @Column(name = "attend_id", nullable = false)
     public int getAttendId() {

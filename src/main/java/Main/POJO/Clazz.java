@@ -11,6 +11,9 @@ public class Clazz {
     private Integer male;
     private Integer female;
 
+    public Clazz() {
+    }
+
     @Id
     @Column(name = "class_id", nullable = false, length = 8)
     public String getClassId() {

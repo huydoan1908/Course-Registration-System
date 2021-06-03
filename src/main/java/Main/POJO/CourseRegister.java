@@ -12,6 +12,9 @@ public class CourseRegister {
     private Date startDate;
     private Date endDate;
 
+    public CourseRegister() {
+    }
+
     @Id
     @Column(name = "regist_id", nullable = false)
     public int getRegistId() {

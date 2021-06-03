@@ -15,6 +15,9 @@ public class Semester {
     private Date startDate;
     private Date endDate;
 
+    public Semester() {
+    }
+
     @Id
     @Column(name = "sem_id", nullable = false)
     public int getSemId() {

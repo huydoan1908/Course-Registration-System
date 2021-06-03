@@ -19,6 +19,8 @@ public class User {
     private boolean gender;
     private Date birthday;
 
+    public User() {
+    }
     @Id
     @Column(name = "id", nullable = false, length = 8)
     public String getId() {

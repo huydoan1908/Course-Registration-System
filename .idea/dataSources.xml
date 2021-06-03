@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="jdbc:mysql://localhost:3306/manage student" uuid="ae39481c-7a4f-4b98-abb8-ec44f69148c9">
+    <data-source source="LOCAL" name="jdbc:mysql://localhost:3306/manage student" uuid="d6670031-dcb3-4d19-8c20-11346558b6b5">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/manage student</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="afa9bc65-279b-4164-95fd-797d27aa64f7">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+D:/Tai lieu/Code/Course_Registration_System/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/manage student</jdbc-url>
     </data-source>

@@ -12,6 +12,9 @@ public class Subject {
     private String subjectName;
     private Integer credits;
 
+    public Subject() {
+    }
+
     @Id
     @Column(name = "subject_id", nullable = false, length = 5)
     public String getSubjectId() {

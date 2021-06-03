@@ -50,9 +50,9 @@
                 <TableView fx:id="courseTable" prefHeight="486.0" prefWidth="859.0">
                     <columns>
                         <TableColumn fx:id="idCol" prefWidth="120.0" text="Mã môn" />
-                        <TableColumn fx:id="nameCol" prefWidth="250.0" text="Tên môn học" />
+                        <TableColumn fx:id="nameCol" prefWidth="225.0" text="Tên môn học" />
                         <TableColumn fx:id="creditCol" minWidth="0.0" prefWidth="50.0" text="Tín chỉ" />
-                  <TableColumn fx:id="teacherCol" prefWidth="120.0" text="GV lý thuyết" />
+                  <TableColumn fx:id="teacherCol" prefWidth="145.0" text="GV lý thuyết" />
                   <TableColumn fx:id="roomCol" prefWidth="60.0" text="Phòng" />
                   <TableColumn fx:id="dayCol" prefWidth="50.0" text="Thứ" />
                   <TableColumn fx:id="sessionCol" prefWidth="135.0" text="Ca" />

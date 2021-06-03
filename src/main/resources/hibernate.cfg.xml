@@ -10,23 +10,14 @@
     <property name="connection.password">1234</property>
 
     <mapping class="Main.POJO.Clazz"/>
-    <mapping resource="Main/Hibernate/Clazz.hbm.xml"/>
     <mapping class="Main.POJO.ClassInfo"/>
-    <mapping resource="Main/Hibernate/ClassInfo.hbm.xml"/>
     <mapping class="Main.POJO.Course"/>
-    <mapping resource="Main/Hibernate/Course.hbm.xml"/>
     <mapping class="Main.POJO.CourseRegister"/>
-    <mapping resource="Main/Hibernate/CourseRegister.hbm.xml"/>
     <mapping class="Main.POJO.Role"/>
-    <mapping resource="Main/Hibernate/Role.hbm.xml"/>
     <mapping class="Main.POJO.Semester"/>
-    <mapping resource="Main/Hibernate/Semester.hbm.xml"/>
     <mapping class="Main.POJO.Session"/>
-    <mapping resource="Main/Hibernate/Session.hbm.xml"/>
     <mapping class="Main.POJO.Subject"/>
-    <mapping resource="Main/Hibernate/Subject.hbm.xml"/>
     <mapping class="Main.POJO.User"/>
-    <mapping resource="Main/Hibernate/Attend.hbm.xml"/>
     <mapping class="Main.POJO.Attend"/>
 
 

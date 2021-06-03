@@ -125,17 +125,22 @@ public class SemesterDAO {
         return semester.get(0);
     }
     public static void writeFile(int semId) throws IOException {
-        FileOutputStream file = new FileOutputStream("src\\main\\resources\\Main\\BIN\\Sem.bin");
+        FileOutputStream file = new FileOutputStream("Sem.bin");
         file.write(semId);
         file.close();
     }
 
-    public static int readFile() throws IOException {
-        FileInputStream file = new FileInputStream("src\\main\\resources\\Main\\BIN\\Sem.bin");
+    public static int readFile(){
         int res =-1;
-        if(file.available() == 0)
+        try {
+            FileInputStream file = new FileInputStream("Sem.bin");
+            if(file.available() == 0)
+                return res;
+            res=file.read();
             return res;
-        res=file.read();
-        return res;
+        } catch (IOException e) {
+            return -1;
+        }
+
     }
 }
